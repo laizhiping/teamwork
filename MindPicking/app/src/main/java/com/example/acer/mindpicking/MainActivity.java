@@ -5,13 +5,31 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import util.FolderAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
+    private ImageButton concealFunction;
+    private ImageView imageView2;
+    private ImageView imageView;
+    private ImageButton albumImput;
+    private ImageButton shoot;
+    private ImageButton newtype;
+    private ImageView concealCarrier;
+    private TextView album_import;
+    private TextView character_recognition;
+    private ImageView prepare;
+    private TextView new_type;
+    private ImageButton top;
+
     private ListView listView;
     private Folder[] folder;
     private Note[] note;
@@ -26,6 +44,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView=(ListView)findViewById(R.id.my_listview);
+
+        concealFunction = (ImageButton)findViewById(R.id.conceal);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        albumImput = (ImageButton)findViewById(R.id.albumimput);
+        imageView2 = (ImageView)findViewById(R.id.imageView2);
+        shoot = (ImageButton)findViewById(R.id.shoot);
+        newtype = (ImageButton)findViewById(R.id.newtype);
+        new_type = (TextView)findViewById(R.id.newType);
+        album_import =(TextView)findViewById(R.id.albumImport);
+        character_recognition = (TextView)findViewById(R.id.characterRrecognition);
+        concealCarrier = (ImageView)findViewById(R.id.circularCarrier);
+        prepare = (ImageView) findViewById(R.id.prepare);
+        top = (ImageButton)findViewById(R.id.top);
 
         note=new Note[noteImages.length];
         for(int i=0;i<note.length;i++){
@@ -51,6 +82,40 @@ public class MainActivity extends AppCompatActivity {
     //配置适配器
     FolderAdapter adapter = new FolderAdapter(foldersList,this);
        listView.setAdapter(adapter);
-    }
 
+        concealFunction.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setVisibility(View.GONE);
+                concealCarrier.setVisibility(View.GONE);
+                albumImput.setVisibility(View.GONE);
+                shoot.setVisibility(View.GONE);
+                newtype.setVisibility(View.GONE);
+                album_import.setVisibility(View.GONE);
+                new_type.setVisibility(View.GONE);
+                imageView2.setVisibility(View.GONE);
+                concealFunction.setVisibility(View.GONE);
+                character_recognition.setVisibility(View.GONE);
+                top.setVisibility(View.VISIBLE);
+                prepare.setVisibility(View.VISIBLE);
+            }
+        });
+        top.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setVisibility(View.VISIBLE);
+                concealCarrier.setVisibility(View.VISIBLE);
+                albumImput.setVisibility(View.VISIBLE);
+                shoot.setVisibility(View.VISIBLE);
+                newtype.setVisibility(View.VISIBLE);
+                album_import.setVisibility(View.VISIBLE);
+                new_type.setVisibility(View.VISIBLE);
+                imageView2.setVisibility(View.VISIBLE);
+                concealFunction.setVisibility(View.VISIBLE);
+                character_recognition.setVisibility(View.VISIBLE);
+                top.setVisibility(View.GONE);
+                prepare.setVisibility(View.GONE);
+            }
+        });
+    }
 }

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MindPicking</string>
+    <string name="album_import">相册导入</string>
+    <string name="character_recognition">文字识别</string>
+    <string name="new_type">新建类型</string>
 </resources>
