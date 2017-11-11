@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication;
+package com.example.administrator.albumapplication;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -14,11 +14,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class MainActivity extends Activity
+public class AlbumActivity extends Activity
 {
     /** Called when the activity is first created. */
     private ImageView imageView;
-    //private OnClickListener imgViewListener;
+    private OnClickListener imgViewListener;
     private Bitmap myBitmap;
     private byte[] mContent;
 
@@ -26,7 +26,7 @@ public class MainActivity extends Activity
     public void onCreate ( Bundle savedInstanceState )
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_album);
 
         Button button1=(Button) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -46,14 +46,13 @@ public class MainActivity extends Activity
                 getImage.addCategory(Intent.CATEGORY_OPENABLE);
                 getImage.setType("image/jpeg");
                 startActivityForResult(getImage, 0);
-
             }
         });
 
         /*Intent intent=new Intent(MainActivity.this,Main2Activity.class);
         intent.putExtra("bitmap",myBitmap);
         startActivity(intent);*/
-       //imageView = (ImageView) findViewById(R.id.imageView);
+        //imageView = (ImageView) findViewById(R.id.imageView);
         // 给imageView控件绑定点点击监听器
         //imageView.setOnClickListener( imgViewListener);
 
