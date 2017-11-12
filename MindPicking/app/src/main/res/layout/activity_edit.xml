@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/action_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="172dp"
-        android:text="@string/button1" />
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="172dp"
+            android:text="@string/button1" />
 
     <Button
         android:id="@+id/button"
@@ -43,7 +46,7 @@
         android:layout_marginBottom="13dp"
         android:text="@string/text1" />
 
-    <Spinner
+    `<Spinner
         android:id="@+id/spinner2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -52,5 +55,8 @@
         android:layout_alignRight="@+id/button"
         android:layout_alignTop="@+id/textView"
         android:entries="@array/spingarr" />
-
-</RelativeLayout>
+        </RelativeLayout>
+        <include
+            layout="@layout/layout_edit_set"
+            ></include>
+</FrameLayout>
