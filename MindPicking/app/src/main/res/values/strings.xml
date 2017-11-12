@@ -4,4 +4,7 @@
     <string name="button2">复制文字</string>
     <string name="button3">请输入随感...</string>
     <string name="text1">所属类型：</string>
+    <string name="album_import">相册导入</string>
+    <string name="character_recognition">文字识别</string>
+    <string name="new_type">新建类型</string>
 </resources>
