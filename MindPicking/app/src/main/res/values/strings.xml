@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MindPicking</string>
+    <string name="button1">字体设置</string>
+    <string name="button2">复制文字</string>
+    <string name="button3">请输入随感...</string>
+    <string name="text1">所属类型：</string>
 </resources>
