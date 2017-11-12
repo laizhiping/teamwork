@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MindPicking.iml" filepath="$PROJECT_DIR$/MindPicking.iml" />
+      <module fileurl="file://G:\GitHub\mindpicking\teamwork\MindPicking\MindPicking.iml" filepath="G:\GitHub\mindpicking\teamwork\MindPicking\MindPicking.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\study\project\teamwork\MindPicking\app\app.iml" filepath="C:\study\project\teamwork\MindPicking\app\app.iml" />
+      <module fileurl="file://G:\GitHub\mindpicking\teamwork\MindPicking\app\app.iml" filepath="G:\GitHub\mindpicking\teamwork\MindPicking\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-package com.example.administrator.albumapplication;
+package com.example.acer.mindpicking;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.example.acer.mindpicking.R;
 
 public class AlbumActivity extends Activity
 {
