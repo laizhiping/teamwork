@@ -13,4 +13,5 @@
         android:id="@+id/my_listview"
         android:dividerHeight="2dp">
     </ListView>
+    <include layout="@layout/paste_layout"/>
 </RelativeLayout>

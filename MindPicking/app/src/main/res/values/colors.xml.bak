@@ -3,6 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+<<<<<<< HEAD
+    <color name="green">#00ff00</color>
+=======
     <color name="colorTheme">#99ccff</color>//我们app的主题颜色
     <color name="colorEditTheme">#8dbcbc</color>//编辑页面的主题颜色
     <color name="white">#ffffffff</color>
@@ -24,4 +27,5 @@
 
     <color name="common_h2">#727272</color>
     <color name="common_h3">#B2B2B2</color>
+>>>>>>> upstream/dev
 </resources>
