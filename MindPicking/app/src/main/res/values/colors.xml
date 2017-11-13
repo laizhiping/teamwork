@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorTheme">#99ccff</color>//我们app的主题颜色
-    <color name="colorEditTheme">#8dbcbc</color>//编辑页面的主题颜色
+    <color name="colorEditTheme">#A1D0D0</color>//编辑页面的主题颜色
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="red">#FF0000</color>
