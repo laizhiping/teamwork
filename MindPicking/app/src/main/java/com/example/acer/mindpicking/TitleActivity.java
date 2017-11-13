@@ -31,9 +31,9 @@ public class TitleActivity extends Activity implements OnClickListener {
     }
 
     private void setupViews() {
-        super.setContentView(R.layout.title);
+        super.setContentView(R.layout.activity_edit);
         mTitleTextView = (TextView) findViewById(R.id.text_title);
-        mContentLayout = (FrameLayout) findViewById(R.id.layout_content);
+
         mBackwardbButton = (Button) findViewById(R.id.button_backward);
         mForwardButton = (Button) findViewById(R.id.button_forward);
     }
