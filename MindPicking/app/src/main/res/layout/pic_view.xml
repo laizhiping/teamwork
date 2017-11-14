@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.mcjproject.PicStackViewActivity">
+    tools:context="com.example.acer.mindpicking.PicStackViewActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,25 +16,12 @@
             android:textColor="#ff0000"
             android:text="当前位置"
             />
-        <Button
-            android:id="@+id/btn_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="click"
-            android:text="向下轮播"
-            />
-        <Button
-            android:id="@+id/btn_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="click"
-            android:text="向上轮播"
-            />
     </LinearLayout>
+
     <StackView
         android:id="@+id/stackview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:loopViews="true"
+        android:loopViews="false"
         />
 </LinearLayout>
