@@ -28,14 +28,18 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private RelativeLayout editSet;
     private GridView fontcolorView;
     private GridView fontsetView;
+    private GridView backgroundView;
     private List<Map<String,Object>>fontcolorlist;
     private List<Map<String,Object>>fontsetlist;
+    private List<Map<String,Object>>backgroundlist;
     private int[]fontcolor={R.drawable.red,R.drawable.blue,R.drawable.black,R.drawable.white,R.drawable.green,R.drawable.yellow};
     private int[]fontset={R.drawable.font1,R.drawable.font2,R.drawable.font3,R.drawable.font4};
+    private int[]background={R.drawable.background1,R.drawable.background2,R.drawable.background3,R.drawable.background4};
     private String[]colorname={"红色","蓝色","黑色","白色","绿色","黄色"};
     private String[]fontname={"华文彩云","华文楷体","微软雅黑","华文中宋"};
     private SimpleAdapter fontcoloradapter;
     private SimpleAdapter fontadapter;
+    private SimpleAdapter backgroudeadapter;
 
     private TextView mTitleTextView;
     private Button mBackwardbButton;
@@ -52,6 +56,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         editSet = (RelativeLayout)findViewById(R.id.editSet);
         fontcolorView=(GridView)findViewById(R.id.fontTheme);
         fontsetView=(GridView)findViewById(R.id.gvTheme);
+        backgroundView=(GridView)findViewById(R.id.backgroundSet);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +76,10 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         fontsetlist = new ArrayList<Map<String, Object>>();
         fontadapter= new SimpleAdapter(this,getfontData(),R.layout.fontcoloritem,new String[]{"image","text"},new int[]{R.id.fontimage,R.id.fonttext});
         fontsetView.setAdapter(fontadapter);
+
+        backgroundlist = new ArrayList<Map<String, Object>>();
+        backgroudeadapter = new SimpleAdapter(this,getbackgroundeData(),R.layout.setback_layout,new String[]{"image"},new int[]{R.id.fontimage});
+        backgroundView.setAdapter(backgroudeadapter);
     }
     private List<Map<String,Object>> getcolorData(){
         for(int i=0;i<fontcolor.length;i++) {
@@ -81,14 +90,23 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         }
         return fontcolorlist;
     }
+
     private List<Map<String,Object>> getfontData(){
         for(int i=0;i<fontset.length;i++) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("image",fontset[i]);
-            map.put("text",fontname[i]);
             fontsetlist.add(map);
         }
         return fontsetlist;
+    }
+    private List<Map<String,Object>> getbackgroundeData(){
+        for(int i=0;i<background.length;i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("image",background[i]);
+            map.put("text",fontname[i]);
+            backgroundlist.add(map);
+        }
+        return backgroundlist;
     }
 
     private void setupViews() {
