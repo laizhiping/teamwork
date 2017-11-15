@@ -1,10 +1,13 @@
 package com.example.acer.mindpicking;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -19,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import android.widget.AdapterView.*;
 
 import static android.R.attr.textColor;
 
@@ -40,6 +45,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private SimpleAdapter fontcoloradapter;
     private SimpleAdapter fontadapter;
     private SimpleAdapter backgroudeadapter;
+    private EditText recognitionText;
 
     private TextView mTitleTextView;
     private Button mBackwardbButton;
@@ -57,6 +63,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         fontcolorView=(GridView)findViewById(R.id.fontTheme);
         fontsetView=(GridView)findViewById(R.id.gvTheme);
         backgroundView=(GridView)findViewById(R.id.backgroundSet);
+        recognitionText =(EditText)findViewById(R.id.recognitionText) ;
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +79,36 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         fontcolorlist = new ArrayList<Map<String, Object>>();
         fontcoloradapter = new SimpleAdapter(this,getcolorData(),R.layout.fontcoloritem,new String[]{"image","text"},new int[]{R.id.fontimage,R.id.fonttext});
         fontcolorView.setAdapter(fontcoloradapter);
+        fontcolorView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                 @Override
+                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                     switch(position){
+                                                         case 0:
+                                                             recognitionText.setTextColor(Color.RED);
+                                                             break;
+                                                         case 1:
+                                                             recognitionText.setTextColor(Color.BLUE);
+                                                             break;
+                                                         case 2:
+                                                             recognitionText.setTextColor(Color.BLACK);
+                                                             break;
+                                                         case 3:
+                                                             recognitionText.setTextColor(Color.WHITE);
+                                                             break;
+                                                         case 4:
+                                                             recognitionText.setTextColor(Color.GREEN);
+                                                             break;
+                                                         case 5:
+                                                             recognitionText.setTextColor(Color.YELLOW);
+                                                             break;
+                                                         default:
+                                                             break;
+
+                                                     }
+                                                 }
+                                             });
+
+
 
         fontsetlist = new ArrayList<Map<String, Object>>();
         fontadapter= new SimpleAdapter(this,getfontData(),R.layout.fontcoloritem,new String[]{"image","text"},new int[]{R.id.fontimage,R.id.fonttext});
@@ -90,11 +127,11 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         }
         return fontcolorlist;
     }
-
     private List<Map<String,Object>> getfontData(){
         for(int i=0;i<fontset.length;i++) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("image",fontset[i]);
+            map.put("text",fontname[i]);
             fontsetlist.add(map);
         }
         return fontsetlist;
