@@ -8,8 +8,8 @@
     android:layout_height="match_parent"
     >
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/layout_titlebar"
@@ -23,7 +23,6 @@
                 android:layout_height="match_parent"
                 android:ellipsize="marquee"
                 android:gravity="center_horizontal|center"
-                android:singleLine="true"
                 android:text="编辑界面"
                 android:textColor="#ffffffff"
                 android:textSize="20dp" />
@@ -38,7 +37,6 @@
                 android:gravity="center"
                 android:onClick="onClick"
                 android:paddingLeft="5dp"
-                android:singleLine="true"
                 android:text="返回"
                 android:textColor="#ffffffff"
                 android:textSize="18dp"
@@ -55,64 +53,62 @@
                 android:gravity="center"
                 android:onClick="onClick"
                 android:paddingLeft="5dp"
-                android:singleLine="true"
                 android:text="预览"
                 android:textColor="#ffffffff"
                 android:textSize="18dp"
                 android:visibility="visible" />
-
         </RelativeLayout>
 
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="141dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/button1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp" />
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="141dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/button1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/bt1"
-        android:text="@string/button2" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/bt1"
+            android:text="@string/button2" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="@string/button3" />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:hint="@string/button3" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editText"
-        android:layout_alignLeft="@+id/bt1"
-        android:layout_alignStart="@+id/bt1"
-        android:layout_marginBottom="13dp"
-        android:text="@string/text1" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/editText"
+            android:layout_alignLeft="@+id/bt1"
+            android:layout_alignStart="@+id/bt1"
+            android:layout_marginBottom="13dp"
+            android:text="@string/text1" />
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_alignEnd="@+id/button"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignTop="@+id/textView"
-        android:entries="@array/spingarr" />
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView"
+            android:layout_alignEnd="@+id/button"
+            android:layout_alignRight="@+id/button"
+            android:layout_alignTop="@+id/textView"
+            android:entries="@array/spingarr" />
     </RelativeLayout>
         <include
             layout="@layout/layout_edit_set"

@@ -20,7 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class EditSetActivity extends Activity {
+
+import static android.R.attr.textColor;
+
+public class EditSetActivity extends Activity implements View.OnClickListener{
+
 
     private Button button1;
     private RelativeLayout editSet;
@@ -43,7 +47,9 @@ public class EditSetActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupViews();   //加载 activity_title 布局 ，并获取标题及两侧按钮
+
+        setupViews();
+      //  getSupportActionBar().hide();
         setContentView(R.layout.activity_edit);
         button1 = (Button)findViewById(R.id.bt1);
         editSet = (RelativeLayout)findViewById(R.id.editSet);
@@ -96,11 +102,11 @@ public class EditSetActivity extends Activity {
         mForwardButton = (Button) findViewById(R.id.button_forward);
     }
 
-    /**
-     * 是否显示返回按钮
-     * @param backwardResid  文字
-     * @param show  true则显示
-     */
+    protected void onBackward(View backwardView) {
+        Toast.makeText(this, "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
+        //finish();
+    }
+
     protected void showBackwardView(int backwardResid, boolean show) {
         if (mBackwardbButton != null) {
             if (show) {
@@ -129,15 +135,6 @@ public class EditSetActivity extends Activity {
     }
 
     /**
-     * 返回按钮点击后触发
-     * @param backwardView
-     */
-    protected void onBackward(View backwardView) {
-        Toast.makeText(this, "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
-        //finish();
-    }
-
-    /**
      * 提交按钮点击后触发
      * @param forwardView
      */
@@ -157,19 +154,11 @@ public class EditSetActivity extends Activity {
         mTitleTextView.setText(title);
     }
 
-    //设置标题文字颜色
-    @Override
-    public void setTitleColor(int textColor) {
-        mTitleTextView.setTextColor(textColor);
-    }
+
+    public void setTitleColor(int textColor){mTitleTextView.setTextColor(textColor);}
 
     //取出FrameLayout并调用父类removeAllViews()方法
-    //@Override
-    //public void setContentView(int layoutResID) {
-        //mContentLayout.removeAllViews();
-        //View.inflate(this, layoutResID, mContentLayout);
-        //onContentChanged();
-    //}
+
 
     @Override
     public void setContentView(View view) {
@@ -188,12 +177,9 @@ public class EditSetActivity extends Activity {
         onContentChanged();
     }
 
-    /* (non-Javadoc)
-     * @see android.view.View.OnClickListener#onClick(android.view.View)
-     * 按钮点击调用的方法
-     */
-    public void onClick(View v) {
 
+    @Override
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_backward:
                 onBackward(v);
