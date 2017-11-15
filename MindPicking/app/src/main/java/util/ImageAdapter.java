@@ -1,6 +1,8 @@
 package util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,9 +15,9 @@ import java.util.List;
  */
 
 public class ImageAdapter extends BaseAdapter {
-    private List<Integer> mImages;
+    private List<String> mImages;
     private Context mContext;
-    public ImageAdapter(List<Integer> mImages,Context context){
+    public ImageAdapter(List<String> mImages,Context context){
         this.mImages = mImages;
         mContext = context;
     }
@@ -37,7 +39,10 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(mContext);
-        imageView.setImageResource(mImages.get(position));
+        Bitmap bm=null;
+        bm = BitmapFactory.decodeFile(mImages.get(position));
+        imageView.setImageBitmap(bm);
+        //imageView.setImageResource(mImages.get(position));
         return imageView;
     }
 }
