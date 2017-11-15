@@ -7,21 +7,28 @@ package com.example.acer.mindpicking;
 public class Note {
     private String noteName;
     private int image;
-    public Note(){
-        noteName=new String();
-    }
+    private String folder;
+    private String content;
+    private String saveTime;
+    private String feeling;
+
     public void setImage(int image) {
         this.image = image;
+    }
+    public int getImage() {
+        return image;
     }
     public void setNoteName(String noteName) {
         this.noteName = noteName;
     }
-
-    public int getImage() {
-        return image;
-    }
-
     public String getNoteName() {
         return noteName;
     }
+    public void setFolder(String folder){this.folder=folder;}
+    public String getFolder(){return this.folder;}
+    public void setContent(String content){this.content=content;}
+    public void setSaveTime(String saveTime){this.saveTime=saveTime;}
+    public String getSaveTime(){return this.saveTime;}
+    public void setFeeling(String feeling){this.feeling=feeling;}
+    public String getFeeling(){return this.feeling;}
 }
