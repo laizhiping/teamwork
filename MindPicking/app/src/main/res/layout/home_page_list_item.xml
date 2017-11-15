@@ -5,15 +5,16 @@
     android:layout_height="wrap_content"
     android:id="@+id/myListItem"
     android:paddingBottom="3dp">
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:textSize="18dp"
-        android:textColor="#ff0000"
-        android:paddingTop="5dp"
-        android:id="@+id/item_text">
-    </TextView>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:textColor="#ff0000"
+            android:paddingTop="5dp"
+            android:id="@+id/folder_name"
+            android:clickable="true">
+        </TextView>
  <!-- <ImageView
         android:id="@+id/item_image"
         android:layout_width="100dp"
@@ -25,7 +26,7 @@
             android:id="@+id/item_gallery"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:spacing="10dp" /> 
+            android:spacing="4dp" /> 
 <!--    <Gallery
         android:layout_width="match_parent"
         android:layout_height="100dp"

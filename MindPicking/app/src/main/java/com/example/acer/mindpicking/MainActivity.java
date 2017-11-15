@@ -1,10 +1,14 @@
 package com.example.acer.mindpicking;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -31,11 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton top;
 
     private ListView listView;
-    private Folder[] folder;
-    private Note[] note;
     private ArrayList< Folder >foldersList = new ArrayList<Folder>() ;
-    private  ArrayList<Note>notesList=new ArrayList<Note>();
-    private String[] folderName={"人性思考","生活感悟","学习经验"};
+    public static   ArrayList<Note>notesList=new ArrayList<Note>();       //这里的public仅为用于SearchActivity测试,最终要改回private
+    private String[] folderName={"人性思考","生活感悟","学习经验","谈心交友","人性光辉","美丽景色"};
     private int[] noteImages={R.drawable.ba75735d6e5e8246d48dd3a532620af4,R.drawable.ae690ee5d271db7ed6531fd1b1bd5f4e,R.drawable.bac9609fa534520309cb48446863f644,
             R.drawable.e362ad63d8ce05c8160d890a7610f4c7,R.drawable.bing,R.drawable.xue,R.drawable.tree,R.drawable.sunshine,R.drawable.sky};
     //private ArrayList< String >foldersList=new ArrayList<String>();
@@ -45,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         listView=(ListView)findViewById(R.id.my_listview);
-
         concealFunction = (ImageButton)findViewById(R.id.conceal);
         imageView = (ImageView) findViewById(R.id.imageView);
         albumImput = (ImageButton)findViewById(R.id.albumimput);
@@ -59,26 +60,49 @@ public class MainActivity extends AppCompatActivity {
         prepare = (ImageView) findViewById(R.id.prepare);
         top = (ImageButton)findViewById(R.id.top);
 
-        note=new Note[noteImages.length];
-        for(int i=0;i<note.length;i++){
-            note[i]=new Note();
-            note[i].setNoteName("note"+i);
-            note[i].setImage(noteImages[i]);
+        ImageButton imageButton=(ImageButton)findViewById(R.id.search_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            }
+        });
+/*        TextView picStackViewActivity=(TextView)findViewById(R.id.folder_name);
+        picStackViewActivity.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(MainActivity.this,PicStackViewActivity.class));
+            }
+        });*/
+/*        ImageButton camera=(ImageButton) findViewById(R.id.shoot);
+        camera.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(MainActivity.this,EditSetActivity.class));
+            }
+        });*/
+
+        for(int i=0;i<noteImages.length;i++){
+            Note temp=new Note();
+            temp.setNoteName("note"+i);
+            temp.setImage(noteImages[i]);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            String s=simpleDateFormat.format(date);
+            temp.setSaveTime(s);
+            notesList.add(temp);
         }
-        folder=new Folder[folderName.length];
-        for(int i=0;i<folder.length;i++){
-            folder[i]=new Folder();
-            folder[i].setFoldName(folderName[i]);
-            folder[i].initAdapter(this);
+        for(int i=0;i<folderName.length;i++){
+            Folder temp=new Folder();
+            temp.setFoldName(folderName[i]);
+            temp.initAdapter(this);
+            foldersList.add(temp);
         }
-        for(int i=0;i<note.length;i++){        //将笔记加入到文件夹中
-            folder[i%3].addNote(note[i]);
+        for(int i=0;i<notesList.size();i++){        //将笔记加入到文件夹中
+            foldersList.get(i%folderName.length).addNote(notesList.get(i));
+            notesList.get(i).setFolder(foldersList.get(i%folderName.length).getFoldName());
         }
 
-        for(int i = 0; i< folder.length; i++) {
-
-            foldersList.add(folder[i]);
-    }
 
     //配置适配器
     FolderAdapter adapter = new FolderAdapter(foldersList,this);
