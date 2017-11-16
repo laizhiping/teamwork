@@ -136,6 +136,27 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         backgroundView.setHorizontalSpacing(itemPaddingH);
         backgroundView.setStretchMode(GridView.NO_STRETCH);
         backgroundView.setNumColumns(size);
+        backgroundView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch(position){
+                    case 0:
+                        recognitionText.setBackgroundResource(R.drawable.background1);
+                        break;
+                    case 1:
+                        recognitionText.setBackgroundResource(R.drawable.background2);
+                        break;
+                    case 2:
+                        recognitionText.setBackgroundResource(R.drawable.background3);
+                        break;
+                    case 3:
+                        recognitionText.setBackgroundResource(R.drawable.background4);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
     private List<Map<String,Object>> getcolorData(){
         for(int i=0;i<fontcolor.length;i++) {

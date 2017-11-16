@@ -71,6 +71,7 @@
             android:text="121221213131232131"
             android:layout_below="@+id/layout_titlebar"
             android:layout_alignParentStart="true"
+            android:background="@drawable/bing"
             android:textColor="@color/black"
             />
         <View
