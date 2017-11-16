@@ -102,7 +102,7 @@
                 android:layout_height="match_parent">
                 <GridView
                     android:id="@+id/backgroundSet"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="5dp"
