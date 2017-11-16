@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static   ArrayList<Note>notesList=new ArrayList<Note>();       //这里的public仅为用于SearchActivity测试,最终要改回private
     private String[] folderName={"人性思考","生活感悟","学习经验","谈心交友","人性光辉","美丽景色"};
     private int[] noteImages={R.drawable.ba75735d6e5e8246d48dd3a532620af4,R.drawable.ae690ee5d271db7ed6531fd1b1bd5f4e,R.drawable.bac9609fa534520309cb48446863f644,
-            R.drawable.e362ad63d8ce05c8160d890a7610f4c7,R.drawable.bing,R.drawable.xue,R.drawable.tree,R.drawable.sunshine,R.drawable.sky};
+            R.drawable.e362ad63d8ce05c8160d890a7610f4c7,R.drawable.bing,R.drawable.xue,R.drawable.sunshine,R.drawable.sky};
     //private ArrayList< String >foldersList=new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
