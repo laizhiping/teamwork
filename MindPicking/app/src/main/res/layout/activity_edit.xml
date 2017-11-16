@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/action_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/layout_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="#99cccc">
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+                android:gravity="center_horizontal|center"
+
+                android:text="编辑界面"
+                android:textColor="#ffffffff"
+                android:textSize="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="11dp" />
+
+            <Button
+                android:id="@+id/button_backward"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="#99cccc"
+                android:drawablePadding="6dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:paddingLeft="5dp"
+
+                android:text="返回"
+                android:textColor="#ffffffff"
+                android:textSize="18dp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/button_forward"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="#99cccc"
+                android:drawablePadding="6dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:paddingLeft="5dp"
+
+                android:text="预览"
+                android:textColor="#ffffffff"
+                android:textSize="18dp"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/recognitionText"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:ems="50"
+            android:text="121221213131232131"
+            android:layout_below="@+id/layout_titlebar"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/bing"
+            android:textColor="@color/black"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_below="@+id/button"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="0dp"
+            android:background="#aa000000"
+            android:id="@+id/view" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/bt1"
+            android:layout_below="@+id/view"
+            android:text="@string/background" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/horzontalView"
+            android:scrollbars="none"
+            android:layout_below="@id/textView3"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <GridView
+                    android:id="@+id/backgroundSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="20dp"
+                    android:scrollbars="none"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_above="@+id/textView"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="0dp"
+            android:background="#aa000000" />
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="141dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/button1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/bt1"
+            android:text="@string/button2" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:hint="@string/button3" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/editText"
+            android:layout_alignLeft="@+id/bt1"
+            android:layout_alignStart="@+id/bt1"
+            android:layout_marginBottom="13dp"
+            android:text="@string/text1" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView"
+            android:layout_alignEnd="@+id/button"
+            android:layout_alignRight="@+id/button"
+            android:layout_alignTop="@+id/textView"
+            android:entries="@array/spingarr" />
+
+
+    </RelativeLayout>
+
+        <include
+            layout="@layout/layout_edit_set"
+            ></include>
+</FrameLayout>
