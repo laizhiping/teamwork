@@ -141,16 +141,16 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch(position){
                     case 0:
-                        recognitionText.setBackgroundResource(R.drawable.background1);
+                        recognitionText.setBackgroundResource(R.drawable.back1);
                         break;
                     case 1:
-                        recognitionText.setBackgroundResource(R.drawable.background2);
+                        recognitionText.setBackgroundResource(R.drawable.bing);
                         break;
                     case 2:
-                        recognitionText.setBackgroundResource(R.drawable.background3);
+                        recognitionText.setBackgroundResource(R.drawable.back3);
                         break;
                     case 3:
-                        recognitionText.setBackgroundResource(R.drawable.background4);
+                        recognitionText.setBackgroundResource(R.drawable.back4);
                         break;
                     default:
                         break;
