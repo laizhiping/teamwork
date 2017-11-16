@@ -18,14 +18,15 @@ public class Folder{
     private String foldName=new String();
     private ArrayList<Note> note=new ArrayList<Note>();
     private NoteAdapter noteAdapter;
+
     public void setFoldName(String foldName){
         this.foldName=foldName;
     }
-    public void addNote(Note note){
-        this.note.add(note);
-    }
     public String getFoldName(){
         return  foldName;
+    }
+    public void addNote(Note note){
+        this.note.add(note);
     }
     public ArrayList<Note> getNotes() {
         return note;
