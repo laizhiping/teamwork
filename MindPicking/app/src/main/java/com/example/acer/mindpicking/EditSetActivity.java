@@ -1,6 +1,9 @@
 package com.example.acer.mindpicking;
 
 import android.app.Activity;
+
+import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -81,6 +85,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
                 }
             }
         });
+
         fontcolorlist = new ArrayList<Map<String, Object>>();
         fontcoloradapter = new SimpleAdapter(this,getcolorData(),R.layout.fontcoloritem,new String[]{"image","text"},new int[]{R.id.fontimage,R.id.fonttext});
         fontcolorView.setAdapter(fontcoloradapter);
@@ -113,15 +118,52 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
                                                  }
                                              });
 
-
+        changeGridView(fontcolorView,fontcolorlist);
 
         fontsetlist = new ArrayList<Map<String, Object>>();
         fontadapter= new SimpleAdapter(this,getfontData(),R.layout.fontcoloritem,new String[]{"image","text"},new int[]{R.id.fontimage,R.id.fonttext});
         fontsetView.setAdapter(fontadapter);
+        changeGridView(fontsetView,fontsetlist);
 
         backgroundlist = new ArrayList<Map<String, Object>>();
         backgroudeadapter = new SimpleAdapter(this,getbackgroundeData(),R.layout.setback_layout,new String[]{"image"},new int[]{R.id.fontimage});
         backgroundView.setAdapter(backgroudeadapter);
+        changeGridView(backgroundView,backgroundlist);
+        int itemWidth = dip2px(this, 100)+200;
+        // item之间的间隔
+        int itemPaddingH = dip2px(this, 1);
+        int size = backgroundlist.size();
+        // 计算GridView宽度
+        int gridviewWidth = size * (itemWidth + itemPaddingH)-10;
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                gridviewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
+        backgroundView.setLayoutParams(params);
+        backgroundView.setColumnWidth(itemWidth);
+        backgroundView.setHorizontalSpacing(itemPaddingH);
+        backgroundView.setStretchMode(GridView.NO_STRETCH);
+        backgroundView.setNumColumns(size);
+        backgroundView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch(position){
+                    case 0:
+                        recognitionText.setBackgroundResource(R.drawable.back1);
+                        break;
+                    case 1:
+                        recognitionText.setBackgroundResource(R.drawable.bing);
+                        break;
+                    case 2:
+                        recognitionText.setBackgroundResource(R.drawable.back3);
+                        break;
+                    case 3:
+                        recognitionText.setBackgroundResource(R.drawable.back4);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
     private List<Map<String,Object>> getcolorData(){
         for(int i=0;i<fontcolor.length;i++) {
@@ -131,6 +173,27 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             fontcolorlist.add(map);
         }
         return fontcolorlist;
+    }
+    private void changeGridView(GridView gridview,List<Map<String,Object>> flist) {
+        // item宽度
+        int itemWidth = dip2px(this, 100);
+        // item之间的间隔
+        int itemPaddingH = dip2px(this, 1);
+        int size = flist.size();
+        // 计算GridView宽度
+        int gridviewWidth = size * (itemWidth + itemPaddingH);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                gridviewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
+        gridview.setLayoutParams(params);
+        gridview.setColumnWidth(itemWidth);
+        gridview.setHorizontalSpacing(itemPaddingH);
+        gridview.setStretchMode(GridView.NO_STRETCH);
+        gridview.setNumColumns(size);
+    }
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
     private List<Map<String,Object>> getfontData(){
         for(int i=0;i<fontset.length;i++) {
@@ -150,7 +213,6 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         }
         return backgroundlist;
     }
-
     private void setupViews() {
         super.setContentView(R.layout.activity_edit);
         mTitleTextView = (TextView) findViewById(R.id.text_title);

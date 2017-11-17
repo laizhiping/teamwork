@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.acer.mindpicking">
-
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+<<<<<<< HEAD
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
+=======
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+>>>>>>> upstream/dev
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,21 +16,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/dev
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditSetActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".PicStackViewActivity" />
-        <activity
-            android:name=".SaveActivity"
-            android:theme="@style/MyDialogActivityStyle"/>
-        <activity android:name=".PreviewActivity"/>
-        <activity android:name=".Albumbutton"/>
+        <activity android:name=".EditSetActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".PicStackViewActivity"></activity>
     </application>
-
-</manifest>
+    </manifest>
