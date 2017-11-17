@@ -2,6 +2,7 @@ package com.example.acer.mindpicking;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class SaveActivity extends Activity {
     private TextView mTitleTextView;
@@ -56,6 +60,30 @@ public class SaveActivity extends Activity {
 
             default:
                 break;
+        }
+    }
+    private void saveBitmap(Bitmap bitmap, String bitName)
+    {
+        File file = new File("/storage/emulated/0/DCIM/Camera/"+bitName);
+        if(file.exists()){
+            file.delete();
+        }
+        FileOutputStream out;
+        try{
+            out = new FileOutputStream(file);
+            if(bitmap.compress(Bitmap.CompressFormat.PNG, 90, out))
+            {
+                out.flush();
+                out.close();
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 }
