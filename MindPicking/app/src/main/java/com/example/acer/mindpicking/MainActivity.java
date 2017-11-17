@@ -71,28 +71,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
-        ImageButton btnalbum=(ImageButton) findViewById(R.id.albumimput);
-        btnalbum.setOnClickListener(new View.OnClickListener() {
+        shoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent =new Intent(MainActivity.this,ImageActivity.class);
-                int data=2;
-                intent.putExtra("extra_data",data);
-                startActivityForResult(intent,2);
-            }
-        });
-        ImageButton btnshoot=(ImageButton) findViewById(R.id.shoot);
-        btnshoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent =new Intent(MainActivity.this,ImageActivity.class);
+                Intent intent =new Intent(MainActivity.this,AlbumActivity.class);
                 int data=1;
                 intent.putExtra("extra_data",data);
                 startActivityForResult(intent,1);
             }
         });
-        ImageButton btnnew=(ImageButton) findViewById(R.id.newtype);
-        btnnew.setOnClickListener(new View.OnClickListener() {
+        albumImput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent =new Intent(MainActivity.this,AlbumActivity.class);
+                int data=2;
+                intent.putExtra("extra_data",data);
+                startActivityForResult(intent,2);
+            }
+        });
+        newtype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 final EditText inputServer = new EditText(MainActivity.this);

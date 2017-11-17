@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/action_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-    <include
-            layout="@layout/layout_edit_set"
-            ></include>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -44,7 +41,6 @@
                 android:gravity="center"
                 android:onClick="onClick"
                 android:paddingLeft="5dp"
-
                 android:text="返回"
                 android:textColor="#ffffffff"
                 android:textSize="18dp"
@@ -61,12 +57,10 @@
                 android:gravity="center"
                 android:onClick="onClick"
                 android:paddingLeft="5dp"
-
                 android:text="预览"
                 android:textColor="#ffffffff"
                 android:textSize="18dp"
                 android:visibility="visible" />
-
         </RelativeLayout>
 
         <EditText
@@ -182,4 +176,7 @@
 
 
     </RelativeLayout>
+        <include
+            layout="@layout/layout_edit_set"
+            ></include>
 </FrameLayout>
