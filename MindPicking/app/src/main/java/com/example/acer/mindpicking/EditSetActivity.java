@@ -2,6 +2,7 @@ package com.example.acer.mindpicking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,6 +77,15 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
                 else if (editSet.getVisibility()==View.VISIBLE){
                     editSet.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        Button btnBack=(Button)findViewById(R.id.button_backward) ;
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent_back=new Intent(EditSetActivity.this,MainActivity.class);
+                startActivity(intent_back);
             }
         });
 

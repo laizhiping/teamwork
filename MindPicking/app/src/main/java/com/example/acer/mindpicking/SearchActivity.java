@@ -12,9 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import com.example.acer.mindpicking.MainActivity;
 
+import CONST.ConstClass;
 import util.SearchAdapter;
-
-import static com.example.acer.mindpicking.MainActivity.notesList;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -33,7 +32,7 @@ public class SearchActivity extends AppCompatActivity {
 
             });
         ListView searchListView=(ListView)findViewById(R.id.search_list_view);
-        searchListView.setAdapter(new SearchAdapter(SearchActivity.this,notesList));
+        searchListView.setAdapter(new SearchAdapter(SearchActivity.this, ConstClass.notesList));
 /*
         SearchView searchView=(SearchView)findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

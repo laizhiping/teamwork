@@ -1,4 +1,4 @@
-package com.example.administrator.album;
+package com.example.acer.mindpicking;;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
-public class Image extends Activity
+public class ImageActivity extends Activity
 {
     /** Called when the activity is first created. */
     private ImageView imageView=null;
@@ -31,7 +31,7 @@ public class Image extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
         imageView = (ImageView) findViewById(R.id.imageView);
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         int data=intent.getIntExtra("extra_data",0);
         if(data==1){
 
@@ -57,7 +57,15 @@ public class Image extends Activity
             @Override
             public void onClick(View v){
                 if(myBitmap!=null) {
-                    saveBitmap(myBitmap, "Image.JPEG");
+                    saveBitmap(myBitmap, "image.JPEG");
+                    /*
+
+                     此处应有文字提取Sring xx；
+
+                     */
+                    Intent intentEdit=new Intent(ImageActivity.this,EditSetActivity.class);
+                    //intent1.putExtra("words",xx);
+                    startActivity(intentEdit);
                 }
             }
         });

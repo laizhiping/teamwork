@@ -1,4 +1,4 @@
-package com.example.administrator.album;
+package com.example.acer.mindpicking;;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +18,7 @@ public class Albumbutton extends Activity
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent =new Intent(Albumbutton.this,Image.class);
+                Intent intent =new Intent(Albumbutton.this,ImageActivity.class);
                 int data=1;
                 intent.putExtra("extra_data",data);
                 startActivityForResult(intent,1);
@@ -29,7 +29,7 @@ public class Albumbutton extends Activity
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent =new Intent(Albumbutton.this,Image.class);
+                Intent intent =new Intent(Albumbutton.this,ImageActivity.class);
                 int data=2;
                 intent.putExtra("extra_data",data);
                 startActivityForResult(intent,2);
