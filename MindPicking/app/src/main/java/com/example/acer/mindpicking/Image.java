@@ -1,4 +1,4 @@
-package com.example.administrator.album;
+package com.example.acer.mindpicking;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

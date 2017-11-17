@@ -1,7 +1,10 @@
 package com.example.acer.mindpicking;
 
 import android.app.Activity;
+
 import android.content.Context;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,11 +28,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+
 import android.widget.AdapterView.*;
+
 
 import static android.R.attr.textColor;
 
 public class EditSetActivity extends Activity implements View.OnClickListener{
+
 
     private Button button1;
     private RelativeLayout editSet;
@@ -57,6 +63,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setupViews();
       //  getSupportActionBar().hide();
         setContentView(R.layout.activity_edit);
@@ -213,19 +220,10 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         mBackwardbButton = (Button) findViewById(R.id.button_backward);
         mForwardButton = (Button) findViewById(R.id.button_forward);
     }
+
     protected void onBackward(View backwardView) {
         Toast.makeText(this, "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
-        //finish();
-    }
-    protected void showBackwardView(int backwardResid, boolean show) {
-        if (mBackwardbButton != null) {
-            if (show) {
-                mBackwardbButton.setText(backwardResid);
-                mBackwardbButton.setVisibility(View.VISIBLE);
-            } else {
-                mBackwardbButton.setVisibility(View.INVISIBLE);
-            }
-        } // else ignored
+        finish();
     }
 
     /**
@@ -246,10 +244,12 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
 
     /**
      * 提交按钮点击后触发
-     * @param forwardView
+     * @paramforwardView
      */
     protected void onForward(View forwardView) {
         Toast.makeText(this, "点击预览", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(EditSetActivity.this,PreviewActivity.class);
+        startActivity(intent);
     }
 
     //设置标题内容
@@ -263,6 +263,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     public void setTitle(CharSequence title) {
         mTitleTextView.setText(title);
     }
+
 
     public void setTitleColor(int textColor){mTitleTextView.setTextColor(textColor);}
 
@@ -285,6 +286,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         mContentLayout.addView(view, params);
         onContentChanged();
     }
+
 
     @Override
     public void onClick(View v) {
