@@ -164,17 +164,6 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         finish();
     }
 
-    protected void showBackwardView(int backwardResid, boolean show) {
-        if (mBackwardbButton != null) {
-            if (show) {
-                mBackwardbButton.setText(backwardResid);
-                mBackwardbButton.setVisibility(View.VISIBLE);
-            } else {
-                mBackwardbButton.setVisibility(View.INVISIBLE);
-            }
-        } // else ignored
-    }
-
     /**
      * 提供是否显示提交按钮
      * @param forwardResId  文字
@@ -197,8 +186,8 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
      */
     protected void onForward(View forwardView) {
         Toast.makeText(this, "点击预览", Toast.LENGTH_LONG).show();
-        //Intent intent = new Intent(EditSetActivity.this,AlbumActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(EditSetActivity.this,PreviewActivity.class);
+        startActivity(intent);
     }
 
     //设置标题内容

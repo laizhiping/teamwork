@@ -1,5 +1,6 @@
 package com.example.acer.mindpicking;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -76,6 +77,8 @@ public class PreviewActivity extends AppCompatActivity {
      */
     protected void onForward(View forwardView) {
         Toast.makeText(this, "点击确认，弹出保存命名", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(PreviewActivity.this,SaveActivity.class);
+        startActivity(intent);
     }
 
     //设置标题内容
