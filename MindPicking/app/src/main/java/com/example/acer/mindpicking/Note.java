@@ -5,12 +5,12 @@ package com.example.acer.mindpicking;
  */
 
 public class Note {
-    private String noteName;
-    private int image;
-    private String folder;
-    private String content;
-    private String saveTime;
-    private String feeling;
+        private String noteName;
+        private int image;
+        private String folder;
+        private String content;
+        private String saveTime;
+        private String feeling;
 
     public void setImage(int image) {
         this.image = image;

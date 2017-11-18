@@ -3,9 +3,10 @@ package com.example.acer.mindpicking;
 import android.app.Activity;
 
 import android.content.Context;
-
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +43,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private GridView fontcolorView;
     private GridView fontsetView;
     private GridView backgroundView;
+    private Button button2;
     private List<Map<String,Object>>fontcolorlist;
     private List<Map<String,Object>>fontsetlist;
     private List<Map<String,Object>>backgroundlist;
@@ -53,6 +55,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private SimpleAdapter fontcoloradapter;
     private SimpleAdapter fontadapter;
     private SimpleAdapter backgroudeadapter;
+    private int backgroundnum;
     private EditText recognitionText;
 
     private TextView mTitleTextView;
@@ -72,7 +75,17 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         fontcolorView=(GridView)findViewById(R.id.fontTheme);
         fontsetView=(GridView)findViewById(R.id.gvTheme);
         backgroundView=(GridView)findViewById(R.id.backgroundSet);
+        Button btnBack=(Button)findViewById(R.id.button_backward) ;
         recognitionText =(EditText)findViewById(R.id.recognitionText) ;
+        button2 =(Button)findViewById(R.id.button_forward);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_back=new Intent(EditSetActivity.this,MainActivity.class);
+                startActivity(intent_back);
+            }
+        });
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +96,20 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
                 else if (editSet.getVisibility()==View.VISIBLE){
                     editSet.setVisibility(View.GONE);
                 }
+            }
+        });
+
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent_back=new Intent(EditSetActivity.this,PreviewActivity.class);
+                /*Bundle bundle = new Bundle();
+                bundle.putString("background","asdajduqw");*/
+               intent_back.putExtra("background","kjhiuh");
+               // intent_back.putExtra("textColor",recognitionText.getTextColors());
+               // intent_back.putExtra("text",recognitionText.getText());
+                startActivity(intent_back);
             }
         });
 
@@ -146,6 +173,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         backgroundView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                backgroundnum=position;
                 switch(position){
                     case 0:
                         recognitionText.setBackgroundResource(R.drawable.back1);
