@@ -47,6 +47,14 @@ public class PreviewActivity extends AppCompatActivity {
       //  String textColor =intent_get.getStringExtra("textColor");
         String content =backgroundnum;
         Bitmap bitmap = textAsBitmap(content, 28);
+        mBackwardbButton =(Button)findViewById(R.id.button_backward);
+        mBackwardbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_back=new Intent(PreviewActivity.this,EditSetActivity.class);
+                startActivity(intent_back);
+            }
+        });
         imageView.setVisibility(View.VISIBLE);
         imageView.setBackgroundResource(R.drawable.bing);//这里是背景图的选择
         imageView.setImageBitmap(bitmap);
@@ -85,51 +93,6 @@ public class PreviewActivity extends AppCompatActivity {
         mForwardButton = (Button) findViewById(R.id.button_forward);
     }
 
-    /**
-     * 是否显示返回按钮
-     * @param backwardResid  文字
-     * @param show  true则显示
-     */
-    protected void showBackwardView(int backwardResid, boolean show) {
-        if (mBackwardbButton != null) {
-            if (show) {
-                mBackwardbButton.setText(backwardResid);
-                mBackwardbButton.setVisibility(View.VISIBLE);
-            } else {
-                mBackwardbButton.setVisibility(View.INVISIBLE);
-            }
-        } // else ignored
-    }
-
-    /**
-     * 提供是否显示提交按钮
-     * @param forwardResId  文字
-     * @param show  true则显示
-     */
-    protected void showForwardView(int forwardResId, boolean show) {
-        if (mForwardButton != null) {
-            if (show) {
-                mForwardButton.setVisibility(View.VISIBLE);
-                mForwardButton.setText(forwardResId);
-            } else {
-                mForwardButton.setVisibility(View.INVISIBLE);
-            }
-        } // else ignored
-    }
-
-    /**
-     * 返回按钮点击后触发
-     * @param backwardView
-     */
-    protected void onBackward(View backwardView) {
-        Toast.makeText(this, "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
-        //finish();
-    }
-
-    /**
-     * 提交按钮点击后触发
-     * @param //forwardView
-     */
 
 
     //设置标题内容
@@ -179,7 +142,7 @@ public class PreviewActivity extends AppCompatActivity {
         textPaint.setTextSize(textSize);
 
         StaticLayout layout = new StaticLayout(text, textPaint, 450,
-                Layout.Alignment.ALIGN_OPPOSITE, 1.5f, 0.0f, true);
+                Layout.Alignment.ALIGN_CENTER, 1.5f, 0.0f, true);
         Bitmap bitmap = Bitmap.createBitmap(layout.getWidth() + 20,
                 layout.getHeight() + 20, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);

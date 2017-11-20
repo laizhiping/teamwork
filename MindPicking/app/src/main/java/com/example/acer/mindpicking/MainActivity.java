@@ -2,6 +2,7 @@ package com.example.acer.mindpicking;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.litepal.tablemanager.Connector;
 
 import util.FolderAdapter;
 
@@ -64,11 +67,14 @@ public class MainActivity extends AppCompatActivity {
         prepare = (ImageView) findViewById(R.id.prepare);
         top = (ImageButton)findViewById(R.id.top);
 
+
         ImageButton imageButton=(ImageButton)findViewById(R.id.search_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SQLiteDatabase sxz = Connector.getDatabase();
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
+
             }
         });
         shoot.setOnClickListener(new View.OnClickListener() {
