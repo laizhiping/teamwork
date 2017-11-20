@@ -2,10 +2,13 @@ package com.example.acer.mindpicking;
 
 import android.app.Activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +38,7 @@ import android.widget.AdapterView.*;
 
 
 import static android.R.attr.textColor;
+import static android.R.attr.typeface;
 
 public class EditSetActivity extends Activity implements View.OnClickListener{
 
@@ -44,9 +49,11 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private GridView fontsetView;
     private GridView backgroundView;
     private Button button2;
+    private Button copytextbutton;
     private List<Map<String,Object>>fontcolorlist;
     private List<Map<String,Object>>fontsetlist;
     private List<Map<String,Object>>backgroundlist;
+    private SeekBar textsizeset;
     private int[]fontcolor={R.drawable.red,R.drawable.blue,R.drawable.black,R.drawable.white,R.drawable.green,R.drawable.yellow};
     private int[]fontset={R.drawable.font1,R.drawable.font2,R.drawable.font3,R.drawable.font4};
     private int[]background={R.drawable.background1,R.drawable.background2,R.drawable.background3,R.drawable.background4};
@@ -78,12 +85,26 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         Button btnBack=(Button)findViewById(R.id.button_backward) ;
         recognitionText =(EditText)findViewById(R.id.recognitionText) ;
         button2 =(Button)findViewById(R.id.button_forward);
+        copytextbutton=(Button)findViewById(R.id.copytextButton);
+        textsizeset =(SeekBar)findViewById(R.id.seekbarFontSize);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent_back=new Intent(EditSetActivity.this,MainActivity.class);
                 startActivity(intent_back);
+            }
+        });
+        copytextbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+// 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("Label", recognitionText.getText().toString());
+// 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+                Toast.makeText(EditSetActivity.this, "复制成功", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -190,6 +211,25 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
                     default:
                         break;
                 }
+            }
+        });
+
+        textsizeset.setMax(40);
+        textsizeset.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+               recognitionText.setTextSize(20+i);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }
