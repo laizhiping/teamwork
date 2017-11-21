@@ -15,6 +15,7 @@ import com.example.acer.mindpicking.PicStackViewActivity;
 import com.example.acer.mindpicking.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ACER on 2017/11/6.
@@ -22,8 +23,8 @@ import java.util.ArrayList;
 
 public class FolderAdapter extends BaseAdapter{
     private Context context;
-    private ArrayList<Folder> foldersList;
-    public FolderAdapter(ArrayList<Folder>foldersList, Context context){
+    private List<Folder> foldersList;
+    public FolderAdapter(List<Folder> foldersList, Context context){
         this.context=context;
         this.foldersList=foldersList;
     }
@@ -58,7 +59,32 @@ public class FolderAdapter extends BaseAdapter{
             }
         });
         Gallery gallery=(Gallery)myView.findViewById(R.id.item_gallery);
-        gallery.setAdapter(folder.getAdapter());
+        gallery.setAdapter(folder.getNoteAdapter());
         return myView;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

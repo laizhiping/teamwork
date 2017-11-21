@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,9 +51,11 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private GridView backgroundView;
     private Button button2;
     private Button copytextbutton;
+    private EditText feeling;
     private List<Map<String,Object>>fontcolorlist;
     private List<Map<String,Object>>fontsetlist;
     private List<Map<String,Object>>backgroundlist;
+    private Spinner spinner;
     private SeekBar textsizeset;
     private int[]fontcolor={R.drawable.red,R.drawable.blue,R.drawable.black,R.drawable.white,R.drawable.green,R.drawable.yellow};
     private int[]fontset={R.drawable.font1,R.drawable.font2,R.drawable.font3,R.drawable.font4};
@@ -62,8 +65,10 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private SimpleAdapter fontcoloradapter;
     private SimpleAdapter fontadapter;
     private SimpleAdapter backgroudeadapter;
+    private String contont;
     private int backgroundnum;
     private EditText recognitionText;
+    private String folder;
 
     private TextView mTitleTextView;
     private Button mBackwardbButton;
@@ -86,7 +91,10 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         recognitionText =(EditText)findViewById(R.id.recognitionText) ;
         button2 =(Button)findViewById(R.id.button_forward);
         copytextbutton=(Button)findViewById(R.id.copytextButton);
+        feeling =(EditText)findViewById(R.id.editText);
         textsizeset =(SeekBar)findViewById(R.id.seekbarFontSize);
+        spinner=(Spinner)findViewById(R.id.spinner2);
+        contont="测试测试测试测试测试测试测试测试测试测试测试";
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +116,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             }
         });
 
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,16 +129,14 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             }
         });
 
-
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 Intent intent_back=new Intent(EditSetActivity.this,PreviewActivity.class);
-                /*Bundle bundle = new Bundle();
-                bundle.putString("background","asdajduqw");*/
-               intent_back.putExtra("background","kjhiuh");
-               // intent_back.putExtra("textColor",recognitionText.getTextColors());
-               // intent_back.putExtra("text",recognitionText.getText());
+                intent_back.putExtra("folder",(String) spinner.getSelectedItem());
+                intent_back.putExtra("contont",contont);
+                intent_back.putExtra("feeling",feeling.getText().toString());
+                intent_back.putExtra("background",backgroundnum);
                 startActivity(intent_back);
             }
         });
@@ -194,19 +201,23 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         backgroundView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                backgroundnum=position;
+
                 switch(position){
                     case 0:
                         recognitionText.setBackgroundResource(R.drawable.back1);
+                        backgroundnum=R.drawable.back1;
                         break;
                     case 1:
                         recognitionText.setBackgroundResource(R.drawable.bing);
+                        backgroundnum=R.drawable.bing;
                         break;
                     case 2:
                         recognitionText.setBackgroundResource(R.drawable.back3);
+                        backgroundnum=R.drawable.back3;
                         break;
                     case 3:
                         recognitionText.setBackgroundResource(R.drawable.back4);
+                        backgroundnum=R.drawable.back4;
                         break;
                     default:
                         break;

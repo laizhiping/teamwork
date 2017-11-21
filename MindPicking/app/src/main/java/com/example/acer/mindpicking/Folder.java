@@ -2,6 +2,8 @@ package com.example.acer.mindpicking;
 
 import android.content.Context;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -14,27 +16,38 @@ import util.NoteAdapter;
  * Created by ACER on 2017/11/6.
  */
 
-public class Folder{
-    private String foldName=new String();
+public class Folder extends DataSupport{
+    public String getFoldName() {
+        return foldName;
+    }
+
+    public ArrayList<Note> getNote() {
+        return note;
+    }
+
+    public NoteAdapter getNoteAdapter() {
+        return noteAdapter;
+    }
+
+    public void setFoldName(String foldName) {
+        this.foldName = foldName;
+    }
+
+    public void setNote(ArrayList<Note> note) {
+        this.note = note;
+    }
+
+    public void setNoteAdapter(NoteAdapter noteAdapter) {
+        this.noteAdapter = noteAdapter;
+    }
+
+    private String foldName;
     private ArrayList<Note> note=new ArrayList<Note>();
     private NoteAdapter noteAdapter;
 
-    public void setFoldName(String foldName){
-        this.foldName=foldName;
-    }
-    public String getFoldName(){
-        return  foldName;
-    }
-    public void addNote(Note note){
-        this.note.add(note);
-    }
-    public ArrayList<Note> getNotes() {
-        return note;
-    }
+
     public void initAdapter(Context context){
         noteAdapter = new NoteAdapter(context,note);
     }
-    public NoteAdapter getAdapter(){
-        return noteAdapter;
-    }
+
 }

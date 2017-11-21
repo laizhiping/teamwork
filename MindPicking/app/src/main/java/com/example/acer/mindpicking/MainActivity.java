@@ -1,5 +1,6 @@
 package com.example.acer.mindpicking;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,8 +12,11 @@ import android.os.Bundle;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import CONST.ConstClass;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -21,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
 
 import util.FolderAdapter;
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton top;
 
     private ListView listView;
-    private ArrayList< Folder >foldersList = new ArrayList<Folder>() ;
+    private List< Folder > foldersList = new ArrayList<Folder>() ;
 
     private String[] folderName={"人性思考","生活感悟","学习经验","谈心交友","人性光辉","美丽景色"};
     private int[] noteImages={R.drawable.ba75735d6e5e8246d48dd3a532620af4,R.drawable.ae690ee5d271db7ed6531fd1b1bd5f4e,R.drawable.bac9609fa534520309cb48446863f644,
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         concealCarrier = (ImageView)findViewById(R.id.circularCarrier);
         prepare = (ImageView) findViewById(R.id.prepare);
         top = (ImageButton)findViewById(R.id.top);
-
+        SQLiteDatabase db = Connector.getDatabase();
 
         ImageButton imageButton=(ImageButton)findViewById(R.id.search_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        for(int i=0;i<noteImages.length;i++){
+     /*   for(int i=0;i<noteImages.length;i++){
             Note temp=new Note();
             temp.setNoteName("note"+i);
             temp.setImage(noteImages[i]);
@@ -135,21 +140,25 @@ public class MainActivity extends AppCompatActivity {
             Date date = new Date();
             String s=simpleDateFormat.format(date);
             temp.setSaveTime(s);
+            temp.save();
             ConstClass.notesList.add(temp);
         }
         for(int i=0;i<folderName.length;i++){
             Folder temp=new Folder();
             temp.setFoldName(folderName[i]);
+            temp.save();
             temp.initAdapter(this);
             foldersList.add(temp);
         }
-        for(int i=0;i<ConstClass.notesList.size();i++){        //将笔记加入到文件夹中
-            foldersList.get(i%folderName.length).addNote(ConstClass.notesList.get(i));
-            ConstClass.notesList.get(i).setFolder(foldersList.get(i%folderName.length).getFoldName());
-        }
+        for(int i=0;i<ConstClass.notesList.size();i++){
+            ContentValues values = new ContentValues();
+            values.put("folder", foldersList.get(i%folderName.length).getFoldName());
+            DataSupport.update(Note.class, values, 2);  //将笔记加入到文件夹中
+            foldersList.get(i%folderName.length).getNote().add(ConstClass.notesList.get(i));
+        }*/
 
-
-    //配置适配器
+        DataSupport.delete(Note.class, 2);
+        //配置适配器
     FolderAdapter adapter = new FolderAdapter(foldersList,this);
        listView.setAdapter(adapter);
 

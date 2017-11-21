@@ -22,10 +22,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class PreviewActivity extends AppCompatActivity {
     //private RelativeLayout mLayoutTitleBar;
@@ -41,11 +46,10 @@ public class PreviewActivity extends AppCompatActivity {
         setupViews();   //加载 activity_title 布局 ，并获取标题及两侧按钮
         imageView=(ImageView)findViewById(R.id.input_image);
         final Intent intent_get=getIntent();
-        //Bundle bundle = this.getIntent().getExtras();
-        //String backgroundnum = bundle.getString("background");
-         String backgroundnum = intent_get.getStringExtra("background");
-      //  String textColor =intent_get.getStringExtra("textColor");
-        String content =backgroundnum;
+        final String content = intent_get.getStringExtra("contont");
+        final String folder = intent_get.getStringExtra("folder");
+        final String feel = intent_get.getStringExtra("feeling");
+        int backgroundenum =intent_get.getIntExtra("background",R.drawable.bing);
         Bitmap bitmap = textAsBitmap(content, 28);
         mBackwardbButton =(Button)findViewById(R.id.button_backward);
         mBackwardbButton.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +60,7 @@ public class PreviewActivity extends AppCompatActivity {
             }
         });
         imageView.setVisibility(View.VISIBLE);
-        imageView.setBackgroundResource(R.drawable.bing);//这里是背景图的选择
+        imageView.setBackgroundResource(backgroundenum);//这里是背景图的选择
         imageView.setImageBitmap(bitmap);
         Button button2=(Button)findViewById(R.id.button_forward) ;
         button2.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +81,18 @@ public class PreviewActivity extends AppCompatActivity {
 
                         saveBitmap(bitmap,name+".JPG");
                         imageView.setDrawingCacheEnabled(false);
+                        Note note = new Note();
+                        note.setNoteName(name);
+                        note.getImage();
+                        note.setContent(content);
+                        List<Folder> foldList = DataSupport.where("foldName = ?",folder).find(Folder.class);
+                        note.setFolder(foldList.get(0));
+                        note.setFeeling(feel);
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date date = new Date();
+                        String s=simpleDateFormat.format(date);
+                        note.setSaveTime(s);
+                        note.save();
                     }
                 });
                 builder.setNegativeButton("取消", null);

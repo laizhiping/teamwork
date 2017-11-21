@@ -1,6 +1,8 @@
 package util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.example.acer.mindpicking.Note;
 import com.example.acer.mindpicking.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ACER on 2017/11/15.
@@ -20,19 +23,19 @@ import java.util.ArrayList;
 
 public class SearchAdapter extends BaseAdapter{
     private Context context;
-    private ArrayList<Note> notesArrayList ;
-    public SearchAdapter(Context context,ArrayList<Note>notesArrayList){
+    private List<Note> notesList ;
+    public SearchAdapter(Context context,List<Note> notesList){
         this.context=context;
-        this.notesArrayList=notesArrayList;
+        this.notesList=notesList;
     }
     @Override
     public int getCount() {
-        return notesArrayList.size();
+        return notesList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return notesArrayList.get(i);
+        return notesList.get(i);
     }
 
     @Override
@@ -47,10 +50,11 @@ public class SearchAdapter extends BaseAdapter{
         TextView searchTitle=(TextView)myView.findViewById(R.id.search_list_item_title);
         TextView searchFolder=(TextView)myView.findViewById(R.id.search_list_item_folder);
         TextView searchTime=(TextView)myView.findViewById(R.id.search_list_item_time);
-        searchImage.setImageResource(notesArrayList.get(i).getImage());
-        searchTitle.setText(notesArrayList.get(i).getNoteName());
-        searchFolder.setText(notesArrayList.get(i).getFolder());
-        searchTime.setText(notesArrayList.get(i).getSaveTime());
+        Bitmap bmp = BitmapFactory.decodeFile(notesList.get(i).getImage().toString());
+        searchImage.setImageBitmap(bmp);
+        searchTitle.setText(notesList.get(i).getNoteName());
+        searchFolder.setText(notesList.get(i).getFolder().getFoldName());
+        searchTime.setText(notesList.get(i).getSaveTime());
         return myView;
     }
 }
