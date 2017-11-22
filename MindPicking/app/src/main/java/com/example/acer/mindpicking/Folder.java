@@ -45,6 +45,15 @@ public class Folder extends DataSupport{
     private ArrayList<Note> note=new ArrayList<Note>();
     private NoteAdapter noteAdapter;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 
     public void initAdapter(Context context){
         noteAdapter = new NoteAdapter(context,note);

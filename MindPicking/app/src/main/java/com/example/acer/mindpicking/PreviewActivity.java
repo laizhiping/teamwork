@@ -79,20 +79,23 @@ public class PreviewActivity extends AppCompatActivity {
                         imageView.setDrawingCacheEnabled(true);
                         Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
 
-                        saveBitmap(bitmap,name+".JPG");
+                        SimpleDateFormat Format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                        Date date = new Date();
+                        String imagename=Format.format(date);
+                        saveBitmap(bitmap,imagename+".jpeg");
                         imageView.setDrawingCacheEnabled(false);
                         Note note = new Note();
                         note.setNoteName(name);
-                        note.getImage();
+                        note.setImage(imagename);
                         note.setContent(content);
                         List<Folder> foldList = DataSupport.where("foldName = ?",folder).find(Folder.class);
                         note.setFolder(foldList.get(0));
                         note.setFeeling(feel);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Date date = new Date();
                         String s=simpleDateFormat.format(date);
                         note.setSaveTime(s);
                         note.save();
+                        foldList.get(0).getNote().add(note);
                     }
                 });
                 builder.setNegativeButton("取消", null);
@@ -172,7 +175,7 @@ public class PreviewActivity extends AppCompatActivity {
     }
     private void saveBitmap(Bitmap bitmap,String bitName)
     {
-        File file = new File("/storage/emulated/0/DCIM/Camera/"+bitName);
+        File file = new File("/storage/emulated/0/MindPicking/"+bitName);
         if(file.exists()){
             file.delete();
         }

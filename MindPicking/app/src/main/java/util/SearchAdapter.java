@@ -11,8 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.acer.mindpicking.Folder;
 import com.example.acer.mindpicking.Note;
 import com.example.acer.mindpicking.R;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +53,12 @@ public class SearchAdapter extends BaseAdapter{
         TextView searchTitle=(TextView)myView.findViewById(R.id.search_list_item_title);
         TextView searchFolder=(TextView)myView.findViewById(R.id.search_list_item_folder);
         TextView searchTime=(TextView)myView.findViewById(R.id.search_list_item_time);
-        Bitmap bmp = BitmapFactory.decodeFile(notesList.get(i).getImage().toString());
+        Bitmap bmp = BitmapFactory.decodeFile("/storage/emulated/0/MindPicking/"+notesList.get(i).getImage().toString()+".jpeg");
         searchImage.setImageBitmap(bmp);
         searchTitle.setText(notesList.get(i).getNoteName());
-        searchFolder.setText(notesList.get(i).getFolder().getFoldName());
+        Note news = DataSupport.find(Note.class, notesList.get(i).getId(), true);
+        Folder folderList = news.getFolder();
+        searchFolder.setText(folderList.getFoldName());
         searchTime.setText(notesList.get(i).getSaveTime());
         return myView;
     }

@@ -2,6 +2,8 @@ package com.example.acer.mindpicking;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.List;
+
 /**
  * Created by ACER on 2017/11/5.
  */
@@ -52,7 +54,7 @@ public class Note extends DataSupport {
     }
 
     private String noteName;
-        private String image;
+    private String image;
 
     public Folder getFolder() {
         return folder;
@@ -63,9 +65,19 @@ public class Note extends DataSupport {
     }
 
     private Folder folder;
-        private String content;
-        private String saveTime;
-        private String feeling;
 
+    private String content;
+    private String saveTime;
+    private String feeling;
+    private int id;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }

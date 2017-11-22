@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,8 @@ import java.util.Objects;
 
 import android.widget.AdapterView.*;
 
+
+import org.litepal.crud.DataSupport;
 
 import static android.R.attr.textColor;
 import static android.R.attr.typeface;
@@ -66,9 +70,9 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private SimpleAdapter fontadapter;
     private SimpleAdapter backgroudeadapter;
     private String contont;
-    private int backgroundnum;
+    private int backgroundnum=R.drawable.bing;
     private EditText recognitionText;
-    private String folder;
+    private ArrayAdapter<String> arr_adapter;
 
     private TextView mTitleTextView;
     private Button mBackwardbButton;
@@ -95,6 +99,18 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         textsizeset =(SeekBar)findViewById(R.id.seekbarFontSize);
         spinner=(Spinner)findViewById(R.id.spinner2);
         contont="测试测试测试测试测试测试测试测试测试测试测试";
+
+
+        List<Folder> allFolder = DataSupport.findAll(Folder.class);
+        List<String> allFoldername =new ArrayList<String>();
+        for(int i=0;i<allFolder.size();i++){
+            allFoldername.add(allFolder.get(i).getFoldName());
+        }
+        arr_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, allFoldername);
+        //设置样式
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //加载适配器
+        spinner.setAdapter(arr_adapter);
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {

@@ -50,8 +50,7 @@ public class FolderAdapter extends BaseAdapter{
         View myView=inflater.inflate(R.layout.home_page_list_item,null);
         //View myView = View.inflate(context,R.layout.home_page_list_item, null);
         TextView textView=(TextView)myView.findViewById(R.id.folder_name);
-        Folder folder=foldersList.get(i);
-        textView.setText(folder.getFoldName());
+        textView.setText(foldersList.get(i).getFoldName());
         textView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -59,7 +58,7 @@ public class FolderAdapter extends BaseAdapter{
             }
         });
         Gallery gallery=(Gallery)myView.findViewById(R.id.item_gallery);
-        gallery.setAdapter(folder.getNoteAdapter());
+        gallery.setAdapter(foldersList.get(i).getNoteAdapter());
         return myView;
     }
 

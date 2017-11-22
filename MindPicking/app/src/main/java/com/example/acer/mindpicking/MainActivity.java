@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton top;
 
     private ListView listView;
-    private List< Folder > foldersList = new ArrayList<Folder>() ;
 
     private String[] folderName={"人性思考","生活感悟","学习经验","谈心交友","人性光辉","美丽景色"};
     private int[] noteImages={R.drawable.ba75735d6e5e8246d48dd3a532620af4,R.drawable.ae690ee5d271db7ed6531fd1b1bd5f4e,R.drawable.bac9609fa534520309cb48446863f644,
@@ -73,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
         top = (ImageButton)findViewById(R.id.top);
         SQLiteDatabase db = Connector.getDatabase();
 
+        final List<Folder> foldersList = DataSupport.findAll(Folder.class);
+        final FolderAdapter adapter = new FolderAdapter(foldersList,this);
+        listView.setAdapter(adapter);
+
+        for(int i=0;i<foldersList.size();i++){
+            foldersList.get(i).initAdapter(this);
+        }
         ImageButton imageButton=(ImageButton)findViewById(R.id.search_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +116,14 @@ public class MainActivity extends AppCompatActivity {
                 builder.setView(inputServer);
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        inputServer.getText().toString();
+                        String foldername=inputServer.getText().toString();
+                        Folder folder = new Folder();
+                        folder.setFoldName(foldername);
+                        folder.initAdapter(MainActivity.this);
+                        folder.save();
+                        foldersList.add(folder);
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
                     }
                 });
                 builder.setNegativeButton("取消", null);
@@ -157,10 +170,9 @@ public class MainActivity extends AppCompatActivity {
             foldersList.get(i%folderName.length).getNote().add(ConstClass.notesList.get(i));
         }*/
 
-        DataSupport.delete(Note.class, 2);
         //配置适配器
-    FolderAdapter adapter = new FolderAdapter(foldersList,this);
-       listView.setAdapter(adapter);
+
+
 
         concealFunction.setOnClickListener(new OnClickListener() {
             @Override
