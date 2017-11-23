@@ -2,7 +2,7 @@
 <litepal>
     <dbname value="sxz" ></dbname>
 
-    <version value="7" ></version>
+    <version value="8" ></version>
 
     <list>
         <mapping class="com.example.acer.mindpicking.Note"></mapping>

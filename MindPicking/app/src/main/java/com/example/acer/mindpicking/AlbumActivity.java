@@ -67,6 +67,14 @@ public class AlbumActivity extends AppCompatActivity {
         });
 
     }
+    /*
+    @Override
+    public void onBackPress(){
+        Intent intent=new Intent();
+        //this.setResult(backCode,intent);
+        this.finish();
+    }*/
+
     @ Override
     protected void onActivityResult ( int requestCode , int resultCode , Intent data )
     {

@@ -1,5 +1,6 @@
 package com.example.acer.mindpicking;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -89,13 +90,20 @@ public class PreviewActivity extends AppCompatActivity {
                         note.setImage(imagename);
                         note.setContent(content);
                         List<Folder> foldList = DataSupport.where("foldName = ?",folder).find(Folder.class);
+                        /*String SDADS= String.valueOf(foldList.get(0).getNote().size());*/
+                        //Toast.makeText(getApplicationContext(),SDADS, Toast.LENGTH_LONG).show();
                         note.setFolder(foldList.get(0));
                         note.setFeeling(feel);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         String s=simpleDateFormat.format(date);
                         note.setSaveTime(s);
                         note.save();
+                      /*  Toast.makeText(getApplicationContext(),SDADS, Toast.LENGTH_LONG).show();*/
                         foldList.get(0).getNote().add(note);
+
+                        ContentValues values = new ContentValues();
+                        values.put("Foldnum", foldList.get(0).getNote().size());
+                        DataSupport.update(Folder.class, values,foldList.get(0).getId());
                     }
                 });
                 builder.setNegativeButton("取消", null);

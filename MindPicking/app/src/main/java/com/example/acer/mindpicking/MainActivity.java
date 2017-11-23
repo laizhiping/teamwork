@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
@@ -119,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
                         String foldername=inputServer.getText().toString();
                         Folder folder = new Folder();
                         folder.setFoldName(foldername);
-                        folder.initAdapter(MainActivity.this);
+                        String SDADS= String.valueOf(folder.getNote().size());
+
                         folder.save();
                         foldersList.add(folder);
                         adapter.notifyDataSetChanged();

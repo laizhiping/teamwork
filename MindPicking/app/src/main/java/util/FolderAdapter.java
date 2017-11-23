@@ -7,12 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.acer.mindpicking.Folder;
 import com.example.acer.mindpicking.MainActivity;
+import com.example.acer.mindpicking.Note;
 import com.example.acer.mindpicking.PicStackViewActivity;
 import com.example.acer.mindpicking.R;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +62,9 @@ public class FolderAdapter extends BaseAdapter{
             }
         });
         Gallery gallery=(Gallery)myView.findViewById(R.id.item_gallery);
-        gallery.setAdapter(foldersList.get(i).getNoteAdapter());
+        List<Note> noteList = DataSupport.where("folder_id=?",String.valueOf(foldersList.get(i).getId())).find(Note.class);
+        NoteAdapter noteAdapter = new NoteAdapter(context,noteList);
+        gallery.setAdapter(noteAdapter);
         return myView;
     }
 

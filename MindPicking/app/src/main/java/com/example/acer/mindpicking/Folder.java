@@ -41,9 +41,19 @@ public class Folder extends DataSupport{
         this.noteAdapter = noteAdapter;
     }
 
+    public void setFoldnum(int foldnum) {
+        this.foldnum = foldnum;
+    }
+
     private String foldName;
     private ArrayList<Note> note=new ArrayList<Note>();
     private NoteAdapter noteAdapter;
+
+    public int getFoldnum() {
+        return foldnum;
+    }
+
+    private int foldnum;
 
     public int getId() {
         return id;
