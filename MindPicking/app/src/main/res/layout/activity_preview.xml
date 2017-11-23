@@ -15,14 +15,14 @@
             android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="11dp"
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:text="预览"
             android:textColor="#ffffffff"
-            android:textSize="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="11dp" />
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/button_backward"
@@ -55,6 +55,7 @@
             android:textSize="18dp"
             android:visibility="visible" />
     </RelativeLayout>
+
     <ImageView
         android:id="@+id/input_image"
         android:layout_width="match_parent"

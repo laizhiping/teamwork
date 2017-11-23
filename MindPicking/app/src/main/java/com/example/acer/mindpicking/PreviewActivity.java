@@ -1,5 +1,6 @@
 package com.example.acer.mindpicking;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,10 +23,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class PreviewActivity extends AppCompatActivity {
     //private RelativeLayout mLayoutTitleBar;
@@ -41,11 +47,10 @@ public class PreviewActivity extends AppCompatActivity {
         setupViews();   //加载 activity_title 布局 ，并获取标题及两侧按钮
         imageView=(ImageView)findViewById(R.id.input_image);
         final Intent intent_get=getIntent();
-        //Bundle bundle = this.getIntent().getExtras();
-        //String backgroundnum = bundle.getString("background");
-         String backgroundnum = intent_get.getStringExtra("background");
-      //  String textColor =intent_get.getStringExtra("textColor");
-        String content =backgroundnum;
+        final String content = intent_get.getStringExtra("contont");
+        final String folder = intent_get.getStringExtra("folder");
+        final String feel = intent_get.getStringExtra("feeling");
+        int backgroundenum =intent_get.getIntExtra("background",R.drawable.bing);
         Bitmap bitmap = textAsBitmap(content, 28);
         mBackwardbButton =(Button)findViewById(R.id.button_backward);
         mBackwardbButton.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +61,7 @@ public class PreviewActivity extends AppCompatActivity {
             }
         });
         imageView.setVisibility(View.VISIBLE);
-        imageView.setBackgroundResource(R.drawable.bing);//这里是背景图的选择
+        imageView.setBackgroundResource(backgroundenum);//这里是背景图的选择
         imageView.setImageBitmap(bitmap);
         Button button2=(Button)findViewById(R.id.button_forward) ;
         button2.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +80,30 @@ public class PreviewActivity extends AppCompatActivity {
                         imageView.setDrawingCacheEnabled(true);
                         Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
 
-                        saveBitmap(bitmap,name+".JPG");
+                        SimpleDateFormat Format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                        Date date = new Date();
+                        String imagename=Format.format(date);
+                        saveBitmap(bitmap,imagename+".jpeg");
                         imageView.setDrawingCacheEnabled(false);
+                        Note note = new Note();
+                        note.setNoteName(name);
+                        note.setImage(imagename);
+                        note.setContent(content);
+                        List<Folder> foldList = DataSupport.where("foldName = ?",folder).find(Folder.class);
+                        /*String SDADS= String.valueOf(foldList.get(0).getNote().size());*/
+                        //Toast.makeText(getApplicationContext(),SDADS, Toast.LENGTH_LONG).show();
+                        note.setFolder(foldList.get(0));
+                        note.setFeeling(feel);
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String s=simpleDateFormat.format(date);
+                        note.setSaveTime(s);
+                        note.save();
+                      /*  Toast.makeText(getApplicationContext(),SDADS, Toast.LENGTH_LONG).show();*/
+                        foldList.get(0).getNote().add(note);
+
+                        ContentValues values = new ContentValues();
+                        values.put("Foldnum", foldList.get(0).getNote().size());
+                        DataSupport.update(Folder.class, values,foldList.get(0).getId());
                     }
                 });
                 builder.setNegativeButton("取消", null);
@@ -156,7 +183,7 @@ public class PreviewActivity extends AppCompatActivity {
     }
     private void saveBitmap(Bitmap bitmap,String bitName)
     {
-        File file = new File("/storage/emulated/0/DCIM/Camera/"+bitName);
+        File file = new File("/storage/emulated/0/MindPicking/"+bitName);
         if(file.exists()){
             file.delete();
         }
