@@ -34,12 +34,11 @@
         android:id="@+id/albumimput"
         android:layout_width="50sp"
         android:layout_height="50sp"
-        android:layout_marginBottom="23dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="26dp"
         android:background="#99ccff"
         app:srcCompat="@drawable/album"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBottom="@+id/circularCarrier"
+        android:layout_toEndOf="@+id/prepare" />
 
     <ImageButton
         android:id="@+id/newtype"
@@ -66,10 +65,10 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/camera"
         android:background="#ffffff"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:layout_marginTop="13dp" />
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/albumImport"
