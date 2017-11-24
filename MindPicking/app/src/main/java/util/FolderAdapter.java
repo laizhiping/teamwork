@@ -58,7 +58,9 @@ public class FolderAdapter extends BaseAdapter{
         textView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                context.startActivity(new Intent(context,PicStackViewActivity.class));
+                Intent intent=new Intent(context,PicStackViewActivity.class);
+                intent.putExtra("google",foldersList.get(i).getId());
+                context.startActivity(intent);
             }
         });
         Gallery gallery=(Gallery)myView.findViewById(R.id.item_gallery);

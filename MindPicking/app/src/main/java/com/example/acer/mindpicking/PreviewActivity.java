@@ -104,6 +104,8 @@ public class PreviewActivity extends AppCompatActivity {
                         ContentValues values = new ContentValues();
                         values.put("Foldnum", foldList.get(0).getNote().size());
                         DataSupport.update(Folder.class, values,foldList.get(0).getId());
+                        Intent intent_back=new Intent(PreviewActivity.this,MainActivity.class);
+                        startActivity(intent_back);
                     }
                 });
                 builder.setNegativeButton("取消", null);
