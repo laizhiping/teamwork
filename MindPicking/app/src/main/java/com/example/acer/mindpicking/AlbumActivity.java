@@ -237,6 +237,7 @@ public class AlbumActivity extends AppCompatActivity {
                         Intent intentEdit=new Intent(AlbumActivity.this,EditSetActivity.class);
                         intentEdit.putExtra("words",wordResult);
                         startActivity(intentEdit);
+                        finish();
                     }
                     catch(Throwable t)
                     {

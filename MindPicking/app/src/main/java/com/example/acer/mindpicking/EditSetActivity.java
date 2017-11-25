@@ -163,6 +163,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
                 intent_back.putExtra("background",backgroundnum);
                 intent_back.putExtra("textsize",textsize);
                 startActivity(intent_back);
+                finish();
             }
         });
 
