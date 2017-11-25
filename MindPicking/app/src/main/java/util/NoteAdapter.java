@@ -44,12 +44,12 @@ public class NoteAdapter extends BaseAdapter {
 	}
 	@Override
 	public View getView(int position, View convertview, ViewGroup viewgroup) {
-		//View myView = LayoutInflater.from(context).inflate(R.layout.gallery_item, null);
-		//ImageView imageView = (ImageView) myView.findViewById(R.id.image);
-		ImageView imageView=new ImageView(context);
+		View myView = LayoutInflater.from(context).inflate(R.layout.gallery_item, null);
+		ImageView imageView = (ImageView) myView.findViewById(R.id.image);
+		//ImageView imageView=new ImageView(context);
 		Bitmap bmp = BitmapFactory.decodeFile("/storage/emulated/0/MindPicking/"+notesArrayList.get(position).getImage().toString()+".jpeg");
 		imageView.setImageBitmap(bmp);
-		return imageView;
+		return myView;
 	}
 
 }
