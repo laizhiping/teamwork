@@ -88,6 +88,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_edit);
         button1 = (Button)findViewById(R.id.bt1);
         editSet = (RelativeLayout)findViewById(R.id.editSet);
+
         fontcolorView=(GridView)findViewById(R.id.fontTheme);
         fontsetView=(GridView)findViewById(R.id.gvTheme);
         backgroundView=(GridView)findViewById(R.id.backgroundSet);
@@ -98,7 +99,10 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         feeling =(EditText)findViewById(R.id.editText);
         textsizeset =(SeekBar)findViewById(R.id.seekbarFontSize);
         spinner=(Spinner)findViewById(R.id.spinner2);
-        contont="测试测试测试测试测试测试测试测试测试测试测试";
+        Intent intent1=getIntent();
+        recognitionText.setText(intent1.getStringExtra("words"));
+        Toast.makeText(getApplicationContext(),intent1.getStringExtra("words"), Toast.LENGTH_LONG).show();
+        contont=" ";
 
 
         List<Folder> allFolder = DataSupport.findAll(Folder.class);
@@ -150,6 +154,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             public void onClick(View v){
                 Intent intent_back=new Intent(EditSetActivity.this,PreviewActivity.class);
                 intent_back.putExtra("folder",(String) spinner.getSelectedItem());
+                contont=recognitionText.getText().toString();
                 intent_back.putExtra("contont",contont);
                 intent_back.putExtra("feeling",feeling.getText().toString());
                 intent_back.putExtra("background",backgroundnum);
