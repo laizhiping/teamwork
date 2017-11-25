@@ -1,15 +1,27 @@
 package com.example.acer.mindpicking;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,14 +30,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import cz.msebera.android.httpclient.Header;
+
 public class AlbumActivity extends AppCompatActivity {
     private ImageView imageView=null;
     private Bitmap myBitmap;
     private byte[] mContent;
+    private String wordResult=new String();
+    private String imagePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},140);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET},150);
         imageView = (ImageView) findViewById(R.id.imageView);
         final Intent intent=getIntent();
         int data=intent.getIntExtra("extra_data",1);
@@ -54,14 +72,13 @@ public class AlbumActivity extends AppCompatActivity {
             public void onClick(View v){
                 if(myBitmap!=null) {
                     saveBitmap(myBitmap, "image.JPEG");
-                    /*
+                    uploadFile();
+                    /*while(wordResult.isEmpty()){
+                        if(!wordResult.isEmpty() ){
+                        break;
+                        }
+                    }*/
 
-                     此处应有文字提取Sring xx；
-
-                    */
-                    Intent intentEdit=new Intent(AlbumActivity.this,EditSetActivity.class);
-                    //intent1.putExtra("words",xx);
-                    startActivity(intentEdit);
                 }
             }
         });
@@ -156,6 +173,7 @@ public class AlbumActivity extends AppCompatActivity {
     private void saveBitmap(Bitmap bitmap,String bitName)
     {
         File file = new File("/sdcard/DCIM/Camera/"+bitName);
+        imagePath="/sdcard/DCIM/Camera/"+bitName;
         if(file.exists()){
             file.delete();
         }
@@ -175,6 +193,68 @@ public class AlbumActivity extends AppCompatActivity {
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+    }
+    public void uploadFile()
+    {
+        //服务器端地址
+        String url = "http://111.231.190.23/gjn/UploadFile";
+        //手机端要上传的文件，首先要保存你手机上存在该文件
+        //String filePath = Environment.getExternalStorageDirectory()
+               //+ "/Download/haha.jpg";
+
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+
+        RequestParams param = new RequestParams();
+        try
+        {
+            param.put("file", new File(imagePath));
+            param.put("sid",666);
+            param.put("wid",777);
+
+            httpClient.post(url, param, new TextHttpResponseHandler()
+            {
+                @Override
+                public void onStart()
+                {
+                    super.onStart();
+
+                }
+
+                @Override
+                public void onSuccess(int i, Header[] headers, String s) {
+
+                    Log.d("hello","Success:"+s);
+                    try{
+                        JSONObject jsonObject=new JSONObject(s);
+                        JSONArray jsonArray=jsonObject.getJSONArray("words_result");
+                        wordResult="";
+                        for(int j=0;j<jsonArray.length();j++)
+                        {
+                            wordResult+=jsonArray.getJSONObject(j).getString("words");
+                        }
+                       // Toast.makeText(AlbumActivity.this,wordResult, Toast.LENGTH_LONG).show();
+                        Intent intentEdit=new Intent(AlbumActivity.this,EditSetActivity.class);
+                        intentEdit.putExtra("words",wordResult);
+                        startActivity(intentEdit);
+                    }
+                    catch(Throwable t)
+                    {
+                        Log.d("notice","can't convert into json");
+                    }
+                }
+
+                @Override
+                public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    Toast.makeText(AlbumActivity.this, s, Toast.LENGTH_LONG).show();
+                    Log.d("notice", "failure>" +s);
+                }
+            });
+
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(AlbumActivity.this, "上传文件不存在！", Toast.LENGTH_LONG).show();
         }
     }
 }
