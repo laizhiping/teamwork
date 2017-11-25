@@ -67,6 +67,7 @@ public class FolderAdapter extends BaseAdapter{
         List<Note> noteList = DataSupport.where("folder_id=?",String.valueOf(foldersList.get(i).getId())).find(Note.class);
         NoteAdapter noteAdapter = new NoteAdapter(context,noteList);
         gallery.setAdapter(noteAdapter);
+        //gallery.setSelection(2);
         return myView;
     }
 
