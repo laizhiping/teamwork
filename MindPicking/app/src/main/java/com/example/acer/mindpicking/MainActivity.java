@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 int data=1;
                 intent.putExtra("extra_data",data);
                 startActivityForResult(intent,1);
-                finish();
+
             }
         });
         albumImput.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 int data=2;
                 intent.putExtra("extra_data",data);
                 startActivityForResult(intent,2);
-                finish();
+
             }
         });
         newtype.setOnClickListener(new View.OnClickListener() {

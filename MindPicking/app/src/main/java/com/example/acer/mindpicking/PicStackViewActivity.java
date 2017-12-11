@@ -65,8 +65,13 @@ public class PicStackViewActivity extends AppCompatActivity {
                 }
             });
         }
-    }}
 
+    }
+public void onBackPressed() {
+    Intent intent_back=new Intent(PicStackViewActivity.this,MainActivity.class);
+    startActivity(intent_back);
+        super.onBackPressed();
+        }}
   /*  public List<String> getPictures(final String strPath) {
         List<String> list = new ArrayList<String>();
         File file = new File(strPath);
