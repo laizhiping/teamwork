@@ -63,19 +63,21 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private SeekBar textsizeset;
     private int[]fontcolor={R.drawable.red,R.drawable.blue,R.drawable.black,R.drawable.white,R.drawable.green,R.drawable.yellow};
     private int[]fontset={R.drawable.font1,R.drawable.font2,R.drawable.font3,R.drawable.font4};
-    private int[]background={R.drawable.background1,R.drawable.background2,R.drawable.background3,R.drawable.background4};
+    private int[]background={R.drawable.background1,R.drawable.background2,R.drawable.background3,R.drawable.background4,R.drawable.background5,R.drawable.background6,R.drawable.background7,R.drawable.background8};
     private String[]colorname={"红色","蓝色","黑色","白色","绿色","黄色"};
     private String[]fontname={"华文彩云","华文楷体","微软雅黑","华文中宋"};
     private SimpleAdapter fontcoloradapter;
     private SimpleAdapter fontadapter;
     private SimpleAdapter backgroudeadapter;
     private String contont;
-    private int backgroundnum=R.drawable.bing;
+    private int backgroundnum=R.drawable.back2;
     private EditText recognitionText;
     private ArrayAdapter<String> arr_adapter;
 
     private TextView mTitleTextView;
     private Button mBackwardbButton;
+    private int colornum=2;
+    private int textsize=20;
     private Button mForwardButton;
     private FrameLayout mContentLayout;
 
@@ -88,6 +90,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_edit);
         button1 = (Button)findViewById(R.id.bt1);
         editSet = (RelativeLayout)findViewById(R.id.editSet);
+
         fontcolorView=(GridView)findViewById(R.id.fontTheme);
         fontsetView=(GridView)findViewById(R.id.gvTheme);
         backgroundView=(GridView)findViewById(R.id.backgroundSet);
@@ -98,7 +101,10 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         feeling =(EditText)findViewById(R.id.editText);
         textsizeset =(SeekBar)findViewById(R.id.seekbarFontSize);
         spinner=(Spinner)findViewById(R.id.spinner2);
-        contont="测试测试测试测试测试测试测试测试测试测试测试";
+        Intent intent1=getIntent();
+        recognitionText.setText(intent1.getStringExtra("words"));
+
+        contont=" ";
 
 
         List<Folder> allFolder = DataSupport.findAll(Folder.class);
@@ -150,10 +156,14 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             public void onClick(View v){
                 Intent intent_back=new Intent(EditSetActivity.this,PreviewActivity.class);
                 intent_back.putExtra("folder",(String) spinner.getSelectedItem());
+                contont=recognitionText.getText().toString();
                 intent_back.putExtra("contont",contont);
+                intent_back.putExtra("color",colornum);
                 intent_back.putExtra("feeling",feeling.getText().toString());
                 intent_back.putExtra("background",backgroundnum);
+                intent_back.putExtra("textsize",textsize);
                 startActivity(intent_back);
+                finish();
             }
         });
 
@@ -166,21 +176,27 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
                                                      switch(position){
                                                          case 0:
                                                              recognitionText.setTextColor(Color.RED);
+                                                             colornum=0;
                                                              break;
                                                          case 1:
                                                              recognitionText.setTextColor(Color.BLUE);
+                                                             colornum=1;
                                                              break;
                                                          case 2:
                                                              recognitionText.setTextColor(Color.BLACK);
+                                                             colornum=2;
                                                              break;
                                                          case 3:
                                                              recognitionText.setTextColor(Color.WHITE);
+                                                             colornum=3;
                                                              break;
                                                          case 4:
                                                              recognitionText.setTextColor(Color.GREEN);
+                                                             colornum=4;
                                                              break;
                                                          case 5:
                                                              recognitionText.setTextColor(Color.YELLOW);
+                                                             colornum=5;
                                                              break;
                                                          default:
                                                              break;
@@ -220,18 +236,34 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
 
                 switch(position){
                     case 0:
-                        recognitionText.setBackgroundResource(R.drawable.back1);
-                        backgroundnum=R.drawable.back1;
+                        recognitionText.setBackgroundResource(R.drawable.background_whiteblue);
+                        backgroundnum=R.drawable.background_whiteblue;
                         break;
                     case 1:
-                        recognitionText.setBackgroundResource(R.drawable.bing);
-                        backgroundnum=R.drawable.bing;
+                        recognitionText.setBackgroundResource(R.drawable.background_darkgreen);
+                        backgroundnum=R.drawable.background_darkgreen;
                         break;
                     case 2:
+                        recognitionText.setBackgroundResource(R.drawable.background_green);
+                        backgroundnum=R.drawable.background_green;
+                        break;
+                    case 3:
+                        recognitionText.setBackgroundResource(R.drawable.background_black);
+                        backgroundnum=R.drawable.background_black;
+                        break;
+                    case 4:
                         recognitionText.setBackgroundResource(R.drawable.back3);
                         backgroundnum=R.drawable.back3;
                         break;
-                    case 3:
+                    case 5:
+                        recognitionText.setBackgroundResource(R.drawable.back2);
+                        backgroundnum=R.drawable.back2;
+                        break;
+                    case 6:
+                        recognitionText.setBackgroundResource(R.drawable.back1);
+                        backgroundnum=R.drawable.back1;
+                        break;
+                    case 7:
                         recognitionText.setBackgroundResource(R.drawable.back4);
                         backgroundnum=R.drawable.back4;
                         break;
@@ -246,7 +278,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                recognitionText.setTextSize(20+i);
-
+                textsize = 20+i;
             }
 
             @Override
@@ -303,7 +335,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
         for(int i=0;i<background.length;i++) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("image",background[i]);
-            map.put("text",fontname[i]);
+            map.put("text","");
             backgroundlist.add(map);
         }
         return backgroundlist;

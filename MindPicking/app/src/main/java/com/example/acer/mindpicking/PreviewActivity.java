@@ -50,13 +50,16 @@ public class PreviewActivity extends AppCompatActivity {
         final String content = intent_get.getStringExtra("contont");
         final String folder = intent_get.getStringExtra("folder");
         final String feel = intent_get.getStringExtra("feeling");
-        int backgroundenum =intent_get.getIntExtra("background",R.drawable.bing);
-        Bitmap bitmap = textAsBitmap(content, 28);
+        int position =  intent_get.getIntExtra("color",2);
+        int textsize = intent_get.getIntExtra("textsize",20);
+        int backgroundenum =intent_get.getIntExtra("background",R.drawable.back2);
+        Bitmap bitmap = textAsBitmap(content, textsize,position);
         mBackwardbButton =(Button)findViewById(R.id.button_backward);
         mBackwardbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent_back=new Intent(PreviewActivity.this,EditSetActivity.class);
+                intent_back.putExtra("words",content);
                 startActivity(intent_back);
             }
         });
@@ -104,6 +107,9 @@ public class PreviewActivity extends AppCompatActivity {
                         ContentValues values = new ContentValues();
                         values.put("Foldnum", foldList.get(0).getNote().size());
                         DataSupport.update(Folder.class, values,foldList.get(0).getId());
+                        Intent intent_back=new Intent(PreviewActivity.this,MainActivity.class);
+                        startActivity(intent_back);
+                        finish();
                     }
                 });
                 builder.setNegativeButton("取消", null);
@@ -159,12 +165,33 @@ public class PreviewActivity extends AppCompatActivity {
                 break;
         }
     }*/
-    public static Bitmap textAsBitmap(String text, float textSize) {
+    public static Bitmap textAsBitmap(String text, float textSize,int i) {
 
         TextPaint textPaint = new TextPaint();
 
 // textPaint.setARGB(0x31, 0x31, 0x31, 0);
-        textPaint.setColor(Color.BLACK);
+        switch(i){
+            case 0:
+                textPaint.setColor(Color.RED);
+                break;
+            case 1:
+                textPaint.setColor(Color.BLUE);
+                break;
+            case 2:
+                textPaint.setColor(Color.BLACK);
+                break;
+            case 3:
+                textPaint.setColor(Color.WHITE);
+                break;
+            case 4:
+                textPaint.setColor(Color.GREEN);
+                break;
+            case 5:
+                textPaint.setColor(Color.YELLOW);
+                break;
+            default:
+                break;
+        }
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(textSize);
 

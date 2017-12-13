@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.example.acer.mindpicking.Note;
+
+
 import java.util.List;
 
 /**
@@ -15,9 +18,9 @@ import java.util.List;
  */
 
 public class ImageAdapter extends BaseAdapter {
-    private List<String> mImages;
+    private List<Note> mImages;
     private Context mContext;
-    public ImageAdapter(List<String> mImages,Context context){
+    public ImageAdapter(List<Note> mImages,Context context){
         this.mImages = mImages;
         mContext = context;
     }
@@ -39,8 +42,9 @@ public class ImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(mContext);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         Bitmap bm=null;
-        bm = BitmapFactory.decodeFile(mImages.get(position));
+        bm = BitmapFactory.decodeFile("/storage/emulated/0/MindPicking/"+mImages.get(position).getImage().toString()+".jpeg");
         imageView.setImageBitmap(bm);
         //imageView.setImageResource(mImages.get(position));
         return imageView;

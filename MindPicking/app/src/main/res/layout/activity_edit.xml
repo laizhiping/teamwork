@@ -66,10 +66,10 @@
         <EditText
             android:id="@+id/recognitionText"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="280dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/layout_titlebar"
-            android:background="@drawable/bing"
+            android:background="@drawable/back2"
             android:ems="50"
             android:text="121221213131232131"
             android:textColor="@color/black" />
