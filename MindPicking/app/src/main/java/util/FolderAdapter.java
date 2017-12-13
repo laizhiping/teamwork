@@ -25,13 +25,15 @@ import java.util.List;
  * Created by ACER on 2017/11/6.
  */
 
-public class FolderAdapter extends BaseAdapter{
+public class FolderAdapter extends BaseAdapter {
     private Context context;
     private List<Folder> foldersList;
-    public FolderAdapter(List<Folder> foldersList, Context context){
-        this.context=context;
-        this.foldersList=foldersList;
+
+    public FolderAdapter(List<Folder> foldersList, Context context) {
+        this.context = context;
+        this.foldersList = foldersList;
     }
+
     @Override
     public int getCount() {
         return foldersList.size();
@@ -50,23 +52,25 @@ public class FolderAdapter extends BaseAdapter{
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater;
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View myView=inflater.inflate(R.layout.home_page_list_item,null);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View myView = inflater.inflate(R.layout.home_page_list_item, null);
         //View myView = View.inflate(context,R.layout.home_page_list_item, null);
-        TextView textView=(TextView)myView.findViewById(R.id.folder_name);
+        TextView textView = (TextView) myView.findViewById(R.id.folder_name);
         textView.setText(foldersList.get(i).getFoldName());
-        textView.setOnClickListener(new View.OnClickListener(){
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                context.startActivity(new Intent(context,PicStackViewActivity.class));
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, PicStackViewActivity.class));
             }
         });
-        Gallery gallery=(Gallery)myView.findViewById(R.id.item_gallery);
-        List<Note> noteList = DataSupport.where("folder_id=?",String.valueOf(foldersList.get(i).getId())).find(Note.class);
-        NoteAdapter noteAdapter = new NoteAdapter(context,noteList);
+
+        Gallery gallery = (Gallery) myView.findViewById(R.id.item_gallery);
+        List<Note> noteList = DataSupport.where("folder_id=?", String.valueOf(foldersList.get(i).getId())).find(Note.class);
+        NoteAdapter noteAdapter = new NoteAdapter(context, noteList);
         gallery.setAdapter(noteAdapter);
         return myView;
     }
+
 
 
 
