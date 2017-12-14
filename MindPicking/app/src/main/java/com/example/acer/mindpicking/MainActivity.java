@@ -17,6 +17,8 @@ import java.util.List;
 import CONST.ConstClass;
 
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         final List<Folder> foldersList = DataSupport.findAll(Folder.class);
         final FolderAdapter adapter = new FolderAdapter(foldersList,this);
         listView.setAdapter(adapter);
+        this.registerForContextMenu(listView);
 
         for(int i=0;i<foldersList.size();i++){
             foldersList.get(i).initAdapter(this);
@@ -209,5 +212,32 @@ public class MainActivity extends AppCompatActivity {
                 prepare.setVisibility(View.GONE);
             }
         });
+    }
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu,v,menuInfo);
+        //设置Menu显示内容
+        menu.setHeaderTitle("文件操作");
+        menu.setHeaderIcon(R.drawable.album);
+        menu.add(1,1,1,"复制");
+        menu.add(1,2,1,"粘贴");
+        menu.add(1,3,1,"剪切");
+        menu.add(1,4,1,"重命名");
+    }
+    public boolean onContextItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case 1:
+                Toast.makeText(MainActivity.this,"点击复制",Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                Toast.makeText(MainActivity.this,"点击粘贴",Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+                Toast.makeText(MainActivity.this,"点击剪切",Toast.LENGTH_SHORT).show();
+                break;
+            case 4:
+                Toast.makeText(MainActivity.this,"点击重命名",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 }
