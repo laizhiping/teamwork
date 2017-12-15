@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -35,6 +37,7 @@ public class AlbumActivity extends AppCompatActivity {
     private ImageView imageView=null;
     private Bitmap myBitmap;
     private byte[] mContent;
+    private RelativeLayout layout1;
     private String wordResult=new String();
     private String imagePath;
     @Override
@@ -43,6 +46,7 @@ public class AlbumActivity extends AppCompatActivity {
         setContentView(R.layout.activity_album);
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},140);
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET},150);
+        layout1 = (RelativeLayout)findViewById(R.id.layout1);
         imageView = (ImageView) findViewById(R.id.imageView);
         final Intent intent=getIntent();
         int data=intent.getIntExtra("extra_data",1);
@@ -59,13 +63,7 @@ public class AlbumActivity extends AppCompatActivity {
             startActivityForResult(getImage, 0);
 
         }
-        Button button1=(Button)findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                finish();
-            }
-        });
+
         Button button2=(Button)findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
