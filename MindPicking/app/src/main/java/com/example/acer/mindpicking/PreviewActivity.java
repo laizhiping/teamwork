@@ -61,6 +61,7 @@ public class PreviewActivity extends AppCompatActivity {
                 Intent intent_back=new Intent(PreviewActivity.this,EditSetActivity.class);
                 intent_back.putExtra("words",content);
                 startActivity(intent_back);
+                finish();
             }
         });
         imageView.setVisibility(View.VISIBLE);
