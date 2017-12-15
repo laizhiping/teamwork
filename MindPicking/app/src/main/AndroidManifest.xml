@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".SearchActivity" />
         <activity android:name=".PreviewActivity" />
-        <activity android:name=".PicStackViewActivity" />
+        <activity android:name=".PicStackViewActivity" android:theme="@style/StackViewTheme"/>
         <activity
             android:name=".SaveActivity"
             android:theme="@style/MyDialogActivityStyle" />

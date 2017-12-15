@@ -109,6 +109,7 @@ public class PreviewActivity extends AppCompatActivity {
                         DataSupport.update(Folder.class, values,foldList.get(0).getId());
                         Intent intent_back=new Intent(PreviewActivity.this,MainActivity.class);
                         startActivity(intent_back);
+                        finish();
                     }
                 });
                 builder.setNegativeButton("取消", null);

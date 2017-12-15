@@ -20,4 +20,11 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="StackViewTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 </resources>

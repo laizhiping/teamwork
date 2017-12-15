@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,6 +53,7 @@ public class AlbumActivity extends AppCompatActivity {
         }
         else{
             Intent getImage = new Intent(Intent.ACTION_GET_CONTENT);
+            Toast.makeText(AlbumActivity.this,"hello", Toast.LENGTH_LONG).show();
             getImage.addCategory(Intent.CATEGORY_OPENABLE);
             getImage.setType("image/*");
             startActivityForResult(getImage, 0);
@@ -237,6 +237,7 @@ public class AlbumActivity extends AppCompatActivity {
                         Intent intentEdit=new Intent(AlbumActivity.this,EditSetActivity.class);
                         intentEdit.putExtra("words",wordResult);
                         startActivity(intentEdit);
+                        finish();
                     }
                     catch(Throwable t)
                     {
