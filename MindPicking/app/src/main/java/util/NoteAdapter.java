@@ -1,6 +1,7 @@
 package util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -8,8 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.example.acer.mindpicking.FinishpreviewActivity;
 import com.example.acer.mindpicking.Folder;
 import com.example.acer.mindpicking.Note;
+import com.example.acer.mindpicking.PicStackViewActivity;
 import com.example.acer.mindpicking.R;
 
 import java.util.ArrayList;
@@ -49,6 +53,15 @@ public class NoteAdapter extends BaseAdapter {
 		//ImageView imageView=new ImageView(context);
 		Bitmap bmp = BitmapFactory.decodeFile("/storage/emulated/0/MindPicking/"+notesArrayList.get(position).getImage().toString()+".jpeg");
 		imageView.setImageBitmap(bmp);
+		final String contont =notesArrayList.get(position).getImage().toString();
+		imageView.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view){
+				Intent intent=new Intent(context,FinishpreviewActivity.class);
+				intent.putExtra("google",contont);
+				context.startActivity(intent);
+			}
+		});
 		return myView;
 	}
 
