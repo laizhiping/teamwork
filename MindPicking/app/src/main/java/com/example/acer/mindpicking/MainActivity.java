@@ -21,6 +21,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -216,26 +217,26 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu,v,menuInfo);
         //设置Menu显示内容
-        menu.setHeaderTitle("文件操作");
+        menu.setHeaderTitle("文件夹操作");
         menu.setHeaderIcon(R.drawable.album);
-        menu.add(1,1,1,"复制");
-        menu.add(1,2,1,"粘贴");
-        menu.add(1,3,1,"剪切");
-        menu.add(1,4,1,"重命名");
+        menu.add(1,1,1,"删除分类");
+        menu.add(1,2,1,"重命名");
     }
     public boolean onContextItemSelected(MenuItem item){
         switch(item.getItemId()){
             case 1:
-                Toast.makeText(MainActivity.this,"点击复制",Toast.LENGTH_SHORT).show();
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+                View itemView = info.targetView;
+                TextView itemContent = (TextView) itemView.findViewById(R.id.folder_name);
+                List<Folder> folderList = DataSupport.where("foldName=?", String.valueOf(itemContent.getText())).find(Folder.class);
+                DataSupport.delete(Folder.class,folderList.get(0).getId());
+                final List<Folder> foldersList = DataSupport.findAll(Folder.class);
+                final FolderAdapter adapter = new FolderAdapter(foldersList,this);
+                adapter.notifyDataSetChanged();
+                listView.setAdapter(adapter);
                 break;
             case 2:
                 Toast.makeText(MainActivity.this,"点击粘贴",Toast.LENGTH_SHORT).show();
-                break;
-            case 3:
-                Toast.makeText(MainActivity.this,"点击剪切",Toast.LENGTH_SHORT).show();
-                break;
-            case 4:
-                Toast.makeText(MainActivity.this,"点击重命名",Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onContextItemSelected(item);
