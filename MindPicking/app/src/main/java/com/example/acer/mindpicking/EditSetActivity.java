@@ -349,7 +349,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     }
 
     protected void onBackward(View backwardView) {
-        Toast.makeText(this, "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "点击返回，可在此处调用finish()", Toast.LENGTH_LONG).show();
         finish();
     }
 
