@@ -1,4 +1,4 @@
-﻿package com.example.administrator.shareapplication;
+﻿package com.example.acer.mindpicking;
 
 import java.io.File;
 import java.io.FileOutputStream;
