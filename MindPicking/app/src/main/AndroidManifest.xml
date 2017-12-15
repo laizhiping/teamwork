@@ -29,12 +29,14 @@
             android:name=".SaveActivity"
             android:theme="@style/MyDialogActivityStyle" />
 
+
         <activity android:name=".EditSetActivity"
             android:theme="@style/EditTheme"/>
 
         <activity
             android:name=".AlbumActivity"
             android:theme="@style/AlbumSaveTheme"/>
+
     </application>
 
 </manifest>
