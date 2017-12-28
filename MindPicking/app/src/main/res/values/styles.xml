@@ -40,4 +40,6 @@
         <item name="colorAccent">@color/emerald</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
 </resources>

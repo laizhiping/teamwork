@@ -2,13 +2,18 @@ package util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.acer.mindpicking.Folder;
 import com.example.acer.mindpicking.MainActivity;
@@ -63,6 +68,13 @@ public class FolderAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, PicStackViewActivity.class);
                 intent.putExtra("google", foldersList.get(i).getId());
                 context.startActivity(intent);
+            }
+        });
+        textView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                return true;
             }
         });
         Gallery gallery = (Gallery) myView.findViewById(R.id.item_gallery);

@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -19,12 +20,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreviewActivity" />
-        <activity android:name=".SearchActivity" android:theme="@style/EditTheme"/>
-        <activity android:name=".PicStackViewActivity" android:theme="@style/StackViewTheme"/>
-        <activity android:name=".SaveActivity" android:theme="@style/MyDialogActivityStyle" />
-        <activity android:name=".EditSetActivity" android:theme="@style/EditTheme"/>
-        <activity android:name=".AlbumActivity" android:theme="@style/AlbumSaveTheme"/>
-        <activity android:name=".FinishpreviewActivity" android:theme="@style/EditTheme"/>
+        <activity android:name=".SearchActivity" />
+        <activity
+            android:name=".PreviewActivity"
+            android:theme="@style/EditTheme" />
+        <activity
+            android:name=".PicStackViewActivity"
+            android:theme="@style/StackViewTheme" />
+        <activity
+            android:name=".SaveActivity"
+            android:theme="@style/MyDialogActivityStyle" />
+        <activity
+            android:name=".EditSetActivity"
+            android:theme="@style/EditTheme" />
+        <activity
+            android:name=".AlbumActivity"
+            android:theme="@style/AlbumSaveTheme" />
+        <activity android:name=".FinishpreviewActivity"
+            android:theme="@style/EditTheme"></activity>
     </application>
+    <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:authorities="${applicationId}.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/provider_paths" />
+    </provider>
 </manifest>

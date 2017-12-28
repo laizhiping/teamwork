@@ -1,4 +1,8 @@
+<<<<<<< HEAD:MindPicking/app/src/main/java/util/Share.java
 package util;
+=======
+package com.example.acer.mindpicking;
+>>>>>>> upstream/dev:MindPicking/app/src/main/java/com/example/acer/mindpicking/AndroidShare.java
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
 import android.view.View;
@@ -41,6 +46,7 @@ import android.widget.Toast;
 import com.example.acer.mindpicking.R;
 
 import static android.widget.GridView.STRETCH_SPACING;
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 @SuppressLint("NewApi")
 public class Share extends Dialog implements AdapterView.OnItemClickListener {
@@ -99,6 +105,7 @@ public class Share extends Dialog implements AdapterView.OnItemClickListener {
             new Thread(new Runnable() {
                 public void run() {
                     try {
+
                         mImgPath = getImagePath(imgUri, getFileCache());
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -333,7 +340,7 @@ public class Share extends Dialog implements AdapterView.OnItemClickListener {
             tv.setLayoutParams(layoutParams);
             tv.setTextColor(Color.parseColor("#212121"));
             tv.setTextSize(16.0F);
-            // tv.setId(R.id.textView1);
+            tv.setId(R.id.textView4);
 
             return item;
         }
@@ -343,8 +350,8 @@ public class Share extends Dialog implements AdapterView.OnItemClickListener {
                 convertView = getItemView();
             }
             ImageView iv = (ImageView) convertView.findViewById(R.id.input_image1);
-            // TextView tv = (TextView) convertView.findViewById(R.id.textView1);
-            ShareItem item = (ShareItem) mListData.get(position);
+            TextView tv = (TextView) convertView.findViewById(R.id.textView4);
+            AndroidShare.ShareItem item = (AndroidShare.ShareItem) mListData.get(position);
             iv.setImageResource(item.logo);
             // tv.setText(item.title);
             return convertView;

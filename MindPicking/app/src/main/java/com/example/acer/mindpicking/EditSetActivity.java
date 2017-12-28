@@ -63,7 +63,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
     private SeekBar textsizeset;
     private int[]fontcolor={R.drawable.red,R.drawable.blue,R.drawable.black,R.drawable.white,R.drawable.green,R.drawable.yellow};
     private int[]fontset={R.drawable.font1,R.drawable.font2,R.drawable.font3,R.drawable.font4};
-    private int[]background={R.drawable.background1,R.drawable.background2,R.drawable.background3,R.drawable.background4,R.drawable.background5,R.drawable.background6,R.drawable.background7,R.drawable.background8};
+    private int[]background={R.drawable.background1,R.drawable.background2,R.drawable.background3,R.drawable.background4};
     private String[]colorname={"红色","蓝色","黑色","白色","绿色","黄色"};
     private String[]fontname={"华文彩云","华文楷体","微软雅黑","华文中宋"};
     private SimpleAdapter fontcoloradapter;
@@ -124,6 +124,7 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
             public void onClick(View view) {
                 Intent intent_back=new Intent(EditSetActivity.this,MainActivity.class);
                 startActivity(intent_back);
+                finish();
             }
         });
         copytextbutton.setOnClickListener(new View.OnClickListener() {
@@ -236,34 +237,18 @@ public class EditSetActivity extends Activity implements View.OnClickListener{
 
                 switch(position){
                     case 0:
-                        recognitionText.setBackgroundResource(R.drawable.background_whiteblue);
-                        backgroundnum=R.drawable.background_whiteblue;
-                        break;
-                    case 1:
-                        recognitionText.setBackgroundResource(R.drawable.background_darkgreen);
-                        backgroundnum=R.drawable.background_darkgreen;
-                        break;
-                    case 2:
-                        recognitionText.setBackgroundResource(R.drawable.background_green);
-                        backgroundnum=R.drawable.background_green;
-                        break;
-                    case 3:
-                        recognitionText.setBackgroundResource(R.drawable.background_black);
-                        backgroundnum=R.drawable.background_black;
-                        break;
-                    case 4:
                         recognitionText.setBackgroundResource(R.drawable.back3);
                         backgroundnum=R.drawable.back3;
                         break;
-                    case 5:
+                    case 1:
                         recognitionText.setBackgroundResource(R.drawable.back2);
                         backgroundnum=R.drawable.back2;
                         break;
-                    case 6:
+                    case 2:
                         recognitionText.setBackgroundResource(R.drawable.back1);
                         backgroundnum=R.drawable.back1;
                         break;
-                    case 7:
+                    case 3:
                         recognitionText.setBackgroundResource(R.drawable.back4);
                         backgroundnum=R.drawable.back4;
                         break;
