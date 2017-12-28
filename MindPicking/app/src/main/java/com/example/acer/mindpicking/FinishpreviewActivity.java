@@ -38,6 +38,17 @@ public class FinishpreviewActivity extends AppCompatActivity {
         imageView1.setImageBitmap(bm);
         List<Note> noteList = DataSupport.where("image=?",content).find(Note.class);
         ganxiang.setText(noteList.get(0).getFeeling().toString());
+        Button button2=(Button)findViewById(R.id.button_forward);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                AndroidShare as = new AndroidShare(
+                        FinishpreviewActivity.this,
+                        "测试分享",
+                        "/storage/emulated/0/MindPicking/"+content+".jpeg");
+                as.show();
+            }
+        });
     }
 
     private void setupViews() {
