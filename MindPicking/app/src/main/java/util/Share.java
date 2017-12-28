@@ -1,4 +1,4 @@
-﻿package com.example.acer.mindpicking;
+package util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,10 +38,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.acer.mindpicking.R;
+
 import static android.widget.GridView.STRETCH_SPACING;
 
 @SuppressLint("NewApi")
-public class AndroidShare extends Dialog implements AdapterView.OnItemClickListener {
+public class Share extends Dialog implements AdapterView.OnItemClickListener {
     private LinearLayout mLayout;
     private GridView mGridView;
     private float mDensity;
@@ -61,17 +63,17 @@ public class AndroidShare extends Dialog implements AdapterView.OnItemClickListe
                     mGridView.setNumColumns(6);
                 }
                 mScreenOrientation = orient;
-                ((AndroidShare.MyAdapter) mGridView.getAdapter()).notifyDataSetChanged();
+                ((MyAdapter) mGridView.getAdapter()).notifyDataSetChanged();
             }
             mHandler.postDelayed(this, 1000L);
         }
     };
 
-    public AndroidShare(Context context) {
+    public Share(Context context) {
         super(context, R.style.AppTheme);
     }
 
-    public AndroidShare(Context context, int theme, String msgText, final String imgUri) {
+    public Share(Context context, int theme, String msgText, final String imgUri) {
         super(context, theme);
         this.msgText = msgText;
 
@@ -89,7 +91,7 @@ public class AndroidShare extends Dialog implements AdapterView.OnItemClickListe
             this.mImgPath = imgUri;
     }
 
-    public AndroidShare(Context context, String msgText, final String imgUri) {
+    public Share(Context context, String msgText, final String imgUri) {
         super(context, R.style.Theme_AppCompat_Light_Dialog);
         this.msgText = msgText;
 
@@ -192,7 +194,7 @@ public class AndroidShare extends Dialog implements AdapterView.OnItemClickListe
 
         this.mHandler.postDelayed(this.work, 1000L);
 
-        setOnDismissListener(new DialogInterface.OnDismissListener() {
+        setOnDismissListener(new OnDismissListener() {
             public void onDismiss(DialogInterface dialog) {
                 mHandler.removeCallbacks(work);
             }
@@ -322,7 +324,7 @@ public class AndroidShare extends Dialog implements AdapterView.OnItemClickListe
             ImageView iv = new ImageView(getContext());
             item.addView(iv);
             iv.setLayoutParams(new LinearLayout.LayoutParams(-2, -2));
-            iv.setId(R.id.imageview);
+            iv.setId(R.id.input_image1);
 
             TextView tv = new TextView(getContext());
             item.addView(tv);
@@ -331,7 +333,7 @@ public class AndroidShare extends Dialog implements AdapterView.OnItemClickListe
             tv.setLayoutParams(layoutParams);
             tv.setTextColor(Color.parseColor("#212121"));
             tv.setTextSize(16.0F);
-            tv.setId(R.id.textView1);
+            // tv.setId(R.id.textView1);
 
             return item;
         }
@@ -340,11 +342,11 @@ public class AndroidShare extends Dialog implements AdapterView.OnItemClickListe
             if (convertView == null) {
                 convertView = getItemView();
             }
-            ImageView iv = (ImageView) convertView.findViewById(R.id.imageview);
-            TextView tv = (TextView) convertView.findViewById(R.id.textView1);
-            AndroidShare.ShareItem item = (AndroidShare.ShareItem) mListData.get(position);
+            ImageView iv = (ImageView) convertView.findViewById(R.id.input_image1);
+            // TextView tv = (TextView) convertView.findViewById(R.id.textView1);
+            ShareItem item = (ShareItem) mListData.get(position);
             iv.setImageResource(item.logo);
-            tv.setText(item.title);
+            // tv.setText(item.title);
             return convertView;
         }
     }
