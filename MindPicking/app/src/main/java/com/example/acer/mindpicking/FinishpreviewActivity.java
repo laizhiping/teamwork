@@ -19,12 +19,15 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
+import util.AndroidShare;
+
+
 public class FinishpreviewActivity extends AppCompatActivity {
     private ImageView imageView1;
     private TextView mTitleTextView;
     private Button mBackwardbButton;
     private  TextView ganxiang;
-
+    private String imagepath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,7 @@ public class FinishpreviewActivity extends AppCompatActivity {
         ganxiang = (TextView)findViewById(R.id.ganxiang);
         final Intent intent_get=getIntent();
         final String content = intent_get.getStringExtra("google");
+        imagepath=content;
         Bitmap bm=null;
         bm = BitmapFactory.decodeFile("/storage/emulated/0/MindPicking/"+content+".jpeg");
         imageView1.setImageBitmap(bm);
@@ -42,7 +46,7 @@ public class FinishpreviewActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                AndroidShare as = new AndroidShare(
+               AndroidShare as = new AndroidShare(
                         FinishpreviewActivity.this,
                         "测试分享",
                         "/storage/emulated/0/MindPicking/"+content+".jpeg");
@@ -76,6 +80,14 @@ public class FinishpreviewActivity extends AppCompatActivity {
         }
     });*/
 
+    protected void onForward(View ForwardView) {
+        //Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+      /*  AndroidShare as = new AndroidShare(
+                FinishpreviewActivity.this,
+                "测试分享",
+                "/storage/emulated/0/MindPicking/"+imagepath+".jpeg");
+        as.show();*/
+    }
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -83,9 +95,9 @@ public class FinishpreviewActivity extends AppCompatActivity {
                 onBackward(v);
                 break;
 
-            //case R.id.button_forward:
-                //onForward(v);
-                //break;
+            case R.id.button_forward:
+                onForward(v);
+                break;
 
             default:
                 break;
