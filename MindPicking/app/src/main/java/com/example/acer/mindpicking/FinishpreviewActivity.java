@@ -19,6 +19,9 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
+import util.AndroidShare;
+
+
 public class FinishpreviewActivity extends AppCompatActivity {
     private ImageView imageView1;
     private TextView mTitleTextView;
@@ -43,7 +46,7 @@ public class FinishpreviewActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                AndroidShare as = new AndroidShare(
+               AndroidShare as = new AndroidShare(
                         FinishpreviewActivity.this,
                         "测试分享",
                         "/storage/emulated/0/MindPicking/"+content+".jpeg");
@@ -79,7 +82,7 @@ public class FinishpreviewActivity extends AppCompatActivity {
 
     protected void onForward(View ForwardView) {
         //Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-      /*  Share as = new Share(
+      /*  AndroidShare as = new AndroidShare(
                 FinishpreviewActivity.this,
                 "测试分享",
                 "/storage/emulated/0/MindPicking/"+imagepath+".jpeg");

@@ -1,8 +1,5 @@
-<<<<<<< HEAD:MindPicking/app/src/main/java/util/Share.java
+
 package util;
-=======
-package com.example.acer.mindpicking;
->>>>>>> upstream/dev:MindPicking/app/src/main/java/com/example/acer/mindpicking/AndroidShare.java
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,13 +40,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.acer.mindpicking.BuildConfig;
 import com.example.acer.mindpicking.R;
 
 import static android.widget.GridView.STRETCH_SPACING;
-import static com.loopj.android.http.AsyncHttpClient.log;
+
 
 @SuppressLint("NewApi")
-public class Share extends Dialog implements AdapterView.OnItemClickListener {
+public class AndroidShare extends Dialog implements AdapterView.OnItemClickListener {
     private LinearLayout mLayout;
     private GridView mGridView;
     private float mDensity;
@@ -75,11 +73,11 @@ public class Share extends Dialog implements AdapterView.OnItemClickListener {
         }
     };
 
-    public Share(Context context) {
+    /*public AndroidShare(Context context) {
         super(context, R.style.AppTheme);
-    }
+    }*/
 
-    public Share(Context context, int theme, String msgText, final String imgUri) {
+    /*public AndroidShare(Context context, int theme, String msgText, final String imgUri) {
         super(context, theme);
         this.msgText = msgText;
 
@@ -95,9 +93,9 @@ public class Share extends Dialog implements AdapterView.OnItemClickListener {
             }).start();
         else
             this.mImgPath = imgUri;
-    }
+    }*/
 
-    public Share(Context context, String msgText, final String imgUri) {
+    public AndroidShare(Context context, String msgText, final String imgUri) {
         super(context, R.style.Theme_AppCompat_Light_Dialog);
         this.msgText = msgText;
 
@@ -243,7 +241,11 @@ public class Share extends Dialog implements AdapterView.OnItemClickListener {
             File f = new File(imgPath);
             if ((f != null) && (f.exists()) && (f.isFile())) {
                 intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
+                Uri contentUri;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)contentUri=FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileProvider", f);
+                else
+                    contentUri=Uri.fromFile(f);
+                intent.putExtra(Intent.EXTRA_STREAM, contentUri);
             }
         }
 

@@ -9,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
         ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},140);
         setContentView(R.layout.activity_main);
+        CreateFolder();
         listView=(ListView)findViewById(R.id.my_listview);
         concealFunction = (ImageButton)findViewById(R.id.conceal);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -214,6 +217,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void CreateFolder(){
+        File file=new File("/storage/emulated/0/MindPicking/");
+        if(!file.exists()){
+
+            file.mkdir();
+
+        }
+    }
+
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu,v,menuInfo);
         //设置Menu显示内容
