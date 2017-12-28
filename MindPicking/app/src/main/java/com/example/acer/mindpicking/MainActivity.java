@@ -1,23 +1,40 @@
 package com.example.acer.mindpicking;
 
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import CONST.ConstClass;
 
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import util.FolderAdapter;
+import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
+
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,17 +52,15 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton top;
 
     private ListView listView;
-    private ArrayList< Folder >foldersList = new ArrayList<Folder>() ;
-    public static   ArrayList<Note>notesList=new ArrayList<Note>();       //这里的public仅为用于SearchActivity测试,最终要改回private
-    private String[] folderName={"人性思考","生活感悟","学习经验","谈心交友","人性光辉","美丽景色"};
-    private int[] noteImages={R.drawable.ba75735d6e5e8246d48dd3a532620af4,R.drawable.ae690ee5d271db7ed6531fd1b1bd5f4e,R.drawable.bac9609fa534520309cb48446863f644,
-            R.drawable.e362ad63d8ce05c8160d890a7610f4c7,R.drawable.bing,R.drawable.xue,R.drawable.tree,R.drawable.sunshine,R.drawable.sky};
+
     //private ArrayList< String >foldersList=new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
+        ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},140);
         setContentView(R.layout.activity_main);
+        CreateFolder();
         listView=(ListView)findViewById(R.id.my_listview);
         concealFunction = (ImageButton)findViewById(R.id.conceal);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -59,12 +74,68 @@ public class MainActivity extends AppCompatActivity {
         concealCarrier = (ImageView)findViewById(R.id.circularCarrier);
         prepare = (ImageView) findViewById(R.id.prepare);
         top = (ImageButton)findViewById(R.id.top);
+        SQLiteDatabase db = Connector.getDatabase();
 
+        final List<Folder> foldersList = DataSupport.findAll(Folder.class);
+        final FolderAdapter adapter = new FolderAdapter(foldersList,this);
+        listView.setAdapter(adapter);
+        this.registerForContextMenu(listView);
+
+        for(int i=0;i<foldersList.size();i++){
+            foldersList.get(i).initAdapter(this);
+        }
         ImageButton imageButton=(ImageButton)findViewById(R.id.search_button);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SQLiteDatabase sxz = Connector.getDatabase();
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
+
+            }
+        });
+        shoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent =new Intent(MainActivity.this,AlbumActivity.class);
+                int data=1;
+                intent.putExtra("extra_data",data);
+                startActivityForResult(intent,1);
+
+            }
+        });
+        albumImput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent =new Intent(MainActivity.this,AlbumActivity.class);
+                int data=2;
+                intent.putExtra("extra_data",data);
+                startActivityForResult(intent,2);
+
+            }
+        });
+        newtype.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                final EditText inputServer = new EditText(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("新建文件夹").setIcon(android.R.drawable.ic_dialog_info);
+                builder.setMessage("输入文件夹名称");
+                builder.setView(inputServer);
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String foldername=inputServer.getText().toString();
+                        Folder folder = new Folder();
+                        folder.setFoldName(foldername);
+                        String SDADS= String.valueOf(folder.getNote().size());
+
+                        folder.save();
+                        foldersList.add(folder);
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
             }
         });
 /*        TextView picStackViewActivity=(TextView)findViewById(R.id.folder_name);
@@ -82,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        for(int i=0;i<noteImages.length;i++){
+     /*   for(int i=0;i<noteImages.length;i++){
             Note temp=new Note();
             temp.setNoteName("note"+i);
             temp.setImage(noteImages[i]);
@@ -90,23 +161,26 @@ public class MainActivity extends AppCompatActivity {
             Date date = new Date();
             String s=simpleDateFormat.format(date);
             temp.setSaveTime(s);
-            notesList.add(temp);
+            temp.save();
+            ConstClass.notesList.add(temp);
         }
         for(int i=0;i<folderName.length;i++){
             Folder temp=new Folder();
             temp.setFoldName(folderName[i]);
+            temp.save();
             temp.initAdapter(this);
             foldersList.add(temp);
         }
-        for(int i=0;i<notesList.size();i++){        //将笔记加入到文件夹中
-            foldersList.get(i%folderName.length).addNote(notesList.get(i));
-            notesList.get(i).setFolder(foldersList.get(i%folderName.length).getFoldName());
-        }
+        for(int i=0;i<ConstClass.notesList.size();i++){
+            ContentValues values = new ContentValues();
+            values.put("folder", foldersList.get(i%folderName.length).getFoldName());
+            DataSupport.update(Note.class, values, 2);  //将笔记加入到文件夹中
+            foldersList.get(i%folderName.length).getNote().add(ConstClass.notesList.get(i));
+        }*/
+
+        //配置适配器
 
 
-    //配置适配器
-    FolderAdapter adapter = new FolderAdapter(foldersList,this);
-       listView.setAdapter(adapter);
 
         concealFunction.setOnClickListener(new OnClickListener() {
             @Override
@@ -142,5 +216,41 @@ public class MainActivity extends AppCompatActivity {
                 prepare.setVisibility(View.GONE);
             }
         });
+    }
+    public void CreateFolder(){
+        File file=new File("/storage/emulated/0/MindPicking/");
+        if(!file.exists()){
+
+            file.mkdir();
+
+        }
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu,v,menuInfo);
+        //设置Menu显示内容
+        menu.setHeaderTitle("文件夹操作");
+        menu.setHeaderIcon(R.drawable.album);
+        menu.add(1,1,1,"删除分类");
+        menu.add(1,2,1,"重命名");
+    }
+    public boolean onContextItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case 1:
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+                View itemView = info.targetView;
+                TextView itemContent = (TextView) itemView.findViewById(R.id.folder_name);
+                List<Folder> folderList = DataSupport.where("foldName=?", String.valueOf(itemContent.getText())).find(Folder.class);
+                DataSupport.delete(Folder.class,folderList.get(0).getId());
+                final List<Folder> foldersList = DataSupport.findAll(Folder.class);
+                final FolderAdapter adapter = new FolderAdapter(foldersList,this);
+                adapter.notifyDataSetChanged();
+                listView.setAdapter(adapter);
+                break;
+            case 2:
+                Toast.makeText(MainActivity.this,"点击粘贴",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 }

@@ -2,31 +2,43 @@ package util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.acer.mindpicking.Folder;
 import com.example.acer.mindpicking.MainActivity;
+import com.example.acer.mindpicking.Note;
 import com.example.acer.mindpicking.PicStackViewActivity;
 import com.example.acer.mindpicking.R;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ACER on 2017/11/6.
  */
 
-public class FolderAdapter extends BaseAdapter{
+public class FolderAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Folder> foldersList;
-    public FolderAdapter(ArrayList<Folder>foldersList, Context context){
-        this.context=context;
-        this.foldersList=foldersList;
+    private List<Folder> foldersList;
+
+    public FolderAdapter(List<Folder> foldersList, Context context) {
+        this.context = context;
+        this.foldersList = foldersList;
     }
+
     @Override
     public int getCount() {
         return foldersList.size();
@@ -45,20 +57,31 @@ public class FolderAdapter extends BaseAdapter{
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater;
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View myView=inflater.inflate(R.layout.home_page_list_item,null);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View myView = inflater.inflate(R.layout.home_page_list_item, null);
         //View myView = View.inflate(context,R.layout.home_page_list_item, null);
-        TextView textView=(TextView)myView.findViewById(R.id.folder_name);
-        Folder folder=foldersList.get(i);
-        textView.setText(folder.getFoldName());
-        textView.setOnClickListener(new View.OnClickListener(){
+        TextView textView = (TextView) myView.findViewById(R.id.folder_name);
+        textView.setText(foldersList.get(i).getFoldName());
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                context.startActivity(new Intent(context,PicStackViewActivity.class));
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PicStackViewActivity.class);
+                intent.putExtra("google", foldersList.get(i).getId());
+                context.startActivity(intent);
             }
         });
-        Gallery gallery=(Gallery)myView.findViewById(R.id.item_gallery);
-        gallery.setAdapter(folder.getAdapter());
+        textView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                return true;
+            }
+        });
+        Gallery gallery = (Gallery) myView.findViewById(R.id.item_gallery);
+        List<Note> noteList = DataSupport.where("folder_id=?", String.valueOf(foldersList.get(i).getId())).find(Note.class);
+        NoteAdapter noteAdapter = new NoteAdapter(context, noteList);
+        gallery.setAdapter(noteAdapter);
+        //gallery.setSelection(2);
         return myView;
     }
 }

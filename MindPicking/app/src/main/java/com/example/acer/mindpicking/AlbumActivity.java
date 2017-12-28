@@ -1,71 +1,103 @@
 package com.example.acer.mindpicking;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import android.app.Activity;
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-import com.example.acer.mindpicking.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
-public class AlbumActivity extends Activity
-{
-    /** Called when the activity is first created. */
-    private ImageView imageView;
-    private OnClickListener imgViewListener;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import cz.msebera.android.httpclient.Header;
+
+public class AlbumActivity extends AppCompatActivity {
+    private ImageView imageView=null;
     private Bitmap myBitmap;
     private byte[] mContent;
-
-    @ Override
-    public void onCreate ( Bundle savedInstanceState )
-    {
+    private RelativeLayout layout1;
+    private String wordResult=new String();
+    private String imagePath;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},140);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET},150);
+        layout1 = (RelativeLayout)findViewById(R.id.layout1);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        final Intent intent=getIntent();
+        int data=intent.getIntExtra("extra_data",1);
 
-        Button button1=(Button) findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivityForResult(getImageByCamera, 1);
+        if(data==1){
+            Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivityForResult(getImageByCamera, 1);
+        }
+        else{
+            Intent getImage = new Intent(Intent.ACTION_GET_CONTENT);
+            Toast.makeText(AlbumActivity.this,"hello", Toast.LENGTH_LONG).show();
+            getImage.addCategory(Intent.CATEGORY_OPENABLE);
+            getImage.setType("image/*");
+            startActivityForResult(getImage, 0);
 
+        }
 
-            }
-        });
-        Button button2=(Button) findViewById(R.id.button2);
+        Button button2=(Button)findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent getImage = new Intent(Intent.ACTION_GET_CONTENT);
-                getImage.addCategory(Intent.CATEGORY_OPENABLE);
-                getImage.setType("image/jpeg");
-                startActivityForResult(getImage, 0);
+                if(myBitmap!=null) {
+                    saveBitmap(myBitmap, "image.JPEG");
+                    uploadFile();
+                    /*while(wordResult.isEmpty()){
+                        if(!wordResult.isEmpty() ){
+                        break;
+                        }
+                    }*/
+
+                }
             }
         });
 
-        /*Intent intent=new Intent(MainActivity.this,Main2Activity.class);
-        intent.putExtra("bitmap",myBitmap);
-        startActivity(intent);*/
-        //imageView = (ImageView) findViewById(R.id.imageView);
-        // 给imageView控件绑定点点击监听器
-        //imageView.setOnClickListener( imgViewListener);
-
     }
+    /*
+    @Override
+    public void onBackPress(){
+        Intent intent=new Intent();
+        //this.setResult(backCode,intent);
+        this.finish();
+    }*/
 
     @ Override
     protected void onActivityResult ( int requestCode , int resultCode , Intent data )
     {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-
+        if(data==null){
+            finish();
+        }
         ContentResolver resolver = getContentResolver();
         /**
          * 因为两种方式都用到了startActivityForResult方法，
@@ -83,30 +115,31 @@ public class AlbumActivity extends Activity
                 // 将字节数组转换为ImageView可调用的Bitmap对象
                 myBitmap = getPicFromBytes(mContent, null);
                 // //把得到的图片绑定在控件上显示
-                //imageView.setImageBitmap(myBitmap);
+                imageView.setImageBitmap(myBitmap);
+
             } catch ( Exception e )
             {
                 System.out.println(e.getMessage());
             }
-
         } else if (requestCode == 1)
         {
             try
             {
-                super.onActivityResult(requestCode, resultCode, data);
                 Bundle extras = data.getExtras();
+                if(extras==null){
+                    finish();
+                }
                 myBitmap = (Bitmap) extras.get("data");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 mContent = baos.toByteArray();
-
             } catch ( Exception e )
             {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            // 把得到的图片绑定在控件显示
-            //imageView.setImageBitmap(myBitmap);
+            // 把得到的图片绑定在控件上显示
+            imageView.setImageBitmap(myBitmap);
         }
     }
 
@@ -133,7 +166,94 @@ public class AlbumActivity extends Activity
         outStream.close();
         inStream.close();
         return data;
-
     }
 
+    private void saveBitmap(Bitmap bitmap,String bitName)
+    {
+        File file = new File("/sdcard/DCIM/Camera/"+bitName);
+        imagePath="/sdcard/DCIM/Camera/"+bitName;
+        if(file.exists()){
+            file.delete();
+        }
+        FileOutputStream out;
+        try{
+            out = new FileOutputStream(file);
+            if(bitmap.compress(Bitmap.CompressFormat.PNG, 90, out))
+            {
+                out.flush();
+                out.close();
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void uploadFile()
+    {
+        //服务器端地址
+        String url = "http://111.231.190.23/gjn/UploadFile";
+        //手机端要上传的文件，首先要保存你手机上存在该文件
+        //String filePath = Environment.getExternalStorageDirectory()
+               //+ "/Download/haha.jpg";
+
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+
+        RequestParams param = new RequestParams();
+        try
+        {
+            param.put("file", new File(imagePath));
+            param.put("sid",666);
+            param.put("wid",777);
+
+            httpClient.post(url, param, new TextHttpResponseHandler()
+            {
+                @Override
+                public void onStart()
+                {
+                    super.onStart();
+
+                }
+
+                @Override
+                public void onSuccess(int i, Header[] headers, String s) {
+
+                    Log.d("hello","Success:"+s);
+                    try{
+                        JSONObject jsonObject=new JSONObject(s);
+                        JSONArray jsonArray=jsonObject.getJSONArray("words_result");
+                        wordResult="";
+                        for(int j=0;j<jsonArray.length();j++)
+                        {
+                            wordResult+=jsonArray.getJSONObject(j).getString("words");
+                        }
+                       // Toast.makeText(AlbumActivity.this,wordResult, Toast.LENGTH_LONG).show();
+                        Intent intentEdit=new Intent(AlbumActivity.this,EditSetActivity.class);
+                        intentEdit.putExtra("words",wordResult);
+                        startActivity(intentEdit);
+                        finish();
+                    }
+                    catch(Throwable t)
+                    {
+                        Log.d("notice","can't convert into json");
+                    }
+                }
+
+                @Override
+                public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                    Toast.makeText(AlbumActivity.this, s, Toast.LENGTH_LONG).show();
+                    Log.d("notice", "failure>" +s);
+                }
+            });
+
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(AlbumActivity.this, "上传文件不存在！", Toast.LENGTH_LONG).show();
+        }
+    }
 }

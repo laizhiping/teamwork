@@ -10,17 +10,20 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.example.acer.mindpicking.MainActivity;
 
-import util.SearchAdapter;
+import org.litepal.crud.DataSupport;
 
-import static com.example.acer.mindpicking.MainActivity.notesList;
+import CONST.ConstClass;
+import util.SearchAdapter;
 
 public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         TextView textView=(TextView)findViewById(R.id.cancel_search);
@@ -32,9 +35,7 @@ public class SearchActivity extends AppCompatActivity {
                 }
 
             });
-        ListView searchListView=(ListView)findViewById(R.id.search_list_view);
-        searchListView.setAdapter(new SearchAdapter(SearchActivity.this,notesList));
-/*
+        List<Note> allNote = DataSupport.findAll(Note.class);
         SearchView searchView=(SearchView)findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -45,13 +46,16 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (!TextUtils.isEmpty(newText.trim())) {
-                        return false;              //此处置入查询条件，预留
+                    ListView searchListView=(ListView)findViewById(R.id.search_list_view);
+                    List<Note> noteList = DataSupport.where("noteName = ?", newText.trim()).find(Note.class);
+                    searchListView.setAdapter(new SearchAdapter(SearchActivity.this, noteList));
+                                 //此处置入查询条件，预留
                 } else {
 
                 }
-                return false;
+                return true;
             }
-        });*/
+        });
 
     }
 }

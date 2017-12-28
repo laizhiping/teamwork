@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.acer.mindpicking.PicStackViewActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#ff0000"
-            android:text="当前位置"
-            />
-    </LinearLayout>
+    android:background="@color/midnight_blue">
 
-    <StackView
-        android:id="@+id/stackview"
+    <TextView
+        android:id="@+id/pic_view_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:loopViews="false"
-        />
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:paddingTop="20dp"
+        android:text="书摘速览"
+        android:textSize="32sp"
+        android:textColor="@color/clouds"
+        android:gravity="center"/>
+
+    <com.bartoszlipinski.flippablestackview.FlippableStackView
+        android:id="@+id/flippable_stack_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 </LinearLayout>
